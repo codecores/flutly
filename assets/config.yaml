@@ -1,0 +1,28 @@
+app_name: Fluttly
+
+colors:
+  black: 0,0,0
+  white: 255,255,255
+  orange: 100,220,20
+
+general:
+  google_font: Acme
+  #custom_font: Gilroy
+
+fonts:
+  small:
+    size: 14.0
+    min_size: 7.0
+    max_size: 14.0
+  medium:
+    size: 16.0
+    min_size: 10.0
+    max_size: 20.0
+  large:
+    size: 26.0
+    min_size: 20.0
+    max_size: 35.0
+  mega:
+    size: 36.0
+    min_size: 30.0
+    max_size: 45.0
