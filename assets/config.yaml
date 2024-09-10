@@ -1,12 +1,11 @@
 app_name: Fluttly
 
-colors:
-  black: 0,0,0
-  white: 255,255,255
-  orange: 100,220,20
-
 general:
-  google_font: Acme
+  translations_path: assets/translations
+  translations_list:
+    - tr
+    - en
+  #google_font: Arial
   #custom_font: Gilroy
 
 fonts:
@@ -26,3 +25,64 @@ fonts:
     size: 36.0
     min_size: 30.0
     max_size: 45.0
+
+custom_colors:
+  dark:
+    text_color: 255,255,255
+    sub_text_color: 150,150,150
+  light:
+    text_color: 0,0,0
+    sub_text_color: 100,100,100
+
+colors:
+  dark:
+    primary:
+      background_color: 0,0,0
+      hint_color: 0,0,0
+      focus_color: 50,50,50
+      disabled_color: 50,50,50
+    secondary:
+      background_color: 0,0,0
+      text_color: 0,0,0
+      hint_color: 0,0,0
+      icon_color: 50,50,50
+    button:
+      color: 100,250,50
+      disabled_color: 0,0,0
+      hover_color: 50,50,50
+      focus_color: 100,100,100
+    app_bar:
+      background_color: 255,255,255
+    drawer:
+      background_color: 255,255,255
+      shadow_color: 0,0,0
+    dialog:
+      background_color: 255,255,255
+      icon_color: 0,0,0
+      barrier_color: 0,0,0
+      shadow_color: 100,250,50
+  light:
+    primary:
+      background_color: 255,255,255
+      text_color: 0,0,0
+      hint_color: 0,0,0
+      button_color: 100,250,50
+      button_text_color: 0,0,0
+      icon_color: 50,50,50
+    secondary:
+      background_color: 0,0,0
+      text_color: 0,0,0
+      hint_color: 0,0,0
+      button_color: 100,250,50
+      button_text_color: 0,0,0
+      icon_color: 50,50,50
+    app_bar:
+      background_color: 0,0,0
+    drawer:
+      background_color: 255,255,255
+      shadow_color: 0,0,0
+    dialog:
+      background_color: 255,255,255
+      icon_color: 0,0,0
+      barrier_color: 0,0,0
+      shadow_color: 100,250,50

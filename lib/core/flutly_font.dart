@@ -1,10 +1,7 @@
-import 'dart:ui';
-
-import 'package:flutly/core/flutly_colors.dart';
+import 'package:flutly/core/flutly_theme.dart';
 import 'package:flutly/core/flutly_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,7 +19,7 @@ class FlutlyFont {
     bool googleFontActive = generalConfig.childExists("google_font");
     if (googleFontActive) {
       return GoogleFonts.getFont(
-        "Acme",
+        generalConfig.getChild("google_font").getValue(),
         textStyle: TextStyle(
           fontSize: size,
           fontWeight: getFontWeight(value),
@@ -47,24 +44,24 @@ class FlutlyFont {
 
   TextOverflow? getTextOverflow(String value) {
     return TextOverflow.values.firstWhereOrNull(
-        (element) => value.toLowerCase().contains(element.name.toLowerCase()));
+        (element) => value.toLowerCase().contains(" ${element.name.toLowerCase()} "));
   }
 
   FontStyle getFontStyle(String value) {
     return FontStyle.values.firstWhere(
-        (element) => value.toLowerCase().contains(element.name.toLowerCase()),
+        (element) => value.toLowerCase().contains(" ${element.name.toLowerCase()} "),
         orElse: () => FontStyle.normal);
   }
 
   Color getColor(String value) {
-    FlutlyColors flutlyColors = Get.find<FlutlyColors>();
+    FlutlyTheme flutlyTheme = Get.find<FlutlyTheme>();
 
-    return flutlyColors
+    return flutlyTheme
         .getColors()
         .entries
         .firstWhere(
-          (entry) => value.toLowerCase().contains(entry.key.toLowerCase()),
-          orElse: () => MapEntry('', flutlyColors.getDefaultColor()),
+          (entry) => value.toLowerCase().contains(" ${entry.key.toLowerCase()} "),
+          orElse: () => MapEntry('', flutlyTheme.getDefaultColor()),
         )
         .value;
   }
@@ -72,7 +69,7 @@ class FlutlyFont {
   FontWeight getFontWeight(String value) {
     return FontWeight.values.firstWhere(
         (element) =>
-            value.toLowerCase().contains("w" + element.value.toString()),
+            value.toLowerCase().contains(" w${element.value} "),
         orElse: () => FontWeight.w400);
   }
 }
