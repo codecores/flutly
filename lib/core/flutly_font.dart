@@ -1,5 +1,5 @@
 import 'package:flutly/core/flutly_theme.dart';
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';

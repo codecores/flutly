@@ -1,9 +1,10 @@
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yaml/yaml.dart';
 
 class FlutlyConfig extends GetxController {
+  RxString currentRoute = "".obs;
   Map<String, FlutlyVariable> variables = {};
 
   double screenInitialWidth = 0.0;
@@ -38,5 +39,13 @@ class FlutlyConfig extends GetxController {
 
   FlutlyVariable getVariable(String key) {
     return variables[key] ?? FlutlyVariable("", "null");
+  }
+
+  String getCurrentRoute() => currentRoute.value;
+
+  void setCurrentRoute(String route) async{
+    await Future.delayed(const Duration(milliseconds: 10));
+    currentRoute = RxString(route);
+    update();
   }
 }

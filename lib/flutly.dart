@@ -4,12 +4,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/core/flulty_fonts.dart';
 import 'package:flutly/core/flutly_config.dart';
 import 'package:flutly/core/flutly_theme.dart';
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutly/widgets/flutly_variable_text.dart';
 import 'package:get/get.dart';
-import 'package:flutly/widgets/flutly_app.dart';
+import 'package:flutly/core/flutly_app.dart';
 import 'package:yaml/yaml.dart';
 
 class Flutly {
@@ -27,7 +27,7 @@ class Flutly {
     Get.put(FlutlyFonts());
 
     List<Locale> supportedLocales = getSupportedLocales();
-    print("Desteklenen diller : " + supportedLocales.first.toString());
+    print("Desteklenen diller : " + supportedLocales.toString());
  
     runApp(
       EasyLocalization(
@@ -36,7 +36,7 @@ class Flutly {
             .getVariable("general")
             .getChild("translations_path")
             .getValue(),
-        fallbackLocale: 'tr'.toLocale(),
+        fallbackLocale: const Locale("tr"),
         child: main,
       ),
     );

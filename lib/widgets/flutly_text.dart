@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutly/core/flulty_fonts.dart';
 import 'package:flutly/core/flutly_font.dart';
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

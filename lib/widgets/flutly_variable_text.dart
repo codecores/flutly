@@ -1,4 +1,4 @@
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutly/widgets/flutly_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

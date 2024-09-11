@@ -9,29 +9,31 @@ class FourPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        title: const Text("Flutly 3. Test Ekranı"),
+    return Container(
+        color: Colors.black,
+      width: double.infinity,
+      height: double.infinity,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          FlutlyText(
+            tr('general.title'),
+            font: "large w500 subTextColor normal ml-1 center clip",
+          ),
+          FlutlyText(
+            tr('general.description'),
+            font: "medium w700 textColor italic",
+          ),
+          GestureDetector(
+            onTap: () => context.push("/four"),
+            child: Container(
+              width: 100,
+              height: 40,
+              color: Colors.red,
+            ),
+          ),
+        ],
       ),
-      body: Container(
-        color: Colors.green,
-        width: double.infinity,
-        height: double.infinity,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.go('/');
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

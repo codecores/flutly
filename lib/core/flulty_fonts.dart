@@ -1,6 +1,6 @@
 import 'package:flutly/core/flutly_config.dart';
 import 'package:flutly/core/flutly_font.dart';
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:get/get.dart';
 
 class FlutlyFonts extends GetxController {

@@ -1,4 +1,4 @@
-import 'package:flutly/core/flutly_variable.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutly/enums/theme_type.dart';
 import 'package:flutly/utilities/flutly_utilities.dart';
 import 'package:flutter/material.dart';

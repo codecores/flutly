@@ -4,8 +4,8 @@ import 'package:flutly/widgets/flutly_variable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
+class FivePage extends StatelessWidget {
+  const FivePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MainPage extends StatelessWidget {
             font: "medium w700 textColor italic",
           ),
           GestureDetector(
-            onTap: () => context.go("/second"),
+            onTap: () => context.push("/other"),
             child: Container(
               width: 100,
               height: 40,
