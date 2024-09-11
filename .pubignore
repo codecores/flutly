@@ -1,0 +1,8 @@
+android/
+ios/
+lib/main.dart
+lib/test/
+assets/
+analysis_options.yaml
+build.yaml
+build/

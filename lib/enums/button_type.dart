@@ -1,0 +1,1 @@
+enum ButtonType { G_DEDECTOR, BOUNCING }

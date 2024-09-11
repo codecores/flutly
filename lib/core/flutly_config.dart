@@ -1,10 +1,13 @@
 import 'package:flutly/models/flutly_variable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:yaml/yaml.dart';
 
 class FlutlyConfig extends GetxController {
+  BuildContext? context;
   RxString currentRoute = "".obs;
+  RxDouble currentAppBarHeight = 0.0.obs;
   Map<String, FlutlyVariable> variables = {};
 
   double screenInitialWidth = 0.0;
@@ -42,10 +45,12 @@ class FlutlyConfig extends GetxController {
   }
 
   String getCurrentRoute() => currentRoute.value;
+  double getCurrentAppBarHeight() => currentAppBarHeight.value;
 
-  void setCurrentRoute(String route) async{
+  void setCurrentRoute(String route, double appBarHeight) async{
     await Future.delayed(const Duration(milliseconds: 10));
     currentRoute = RxString(route);
+    currentAppBarHeight = RxDouble(appBarHeight);
     update();
   }
 }

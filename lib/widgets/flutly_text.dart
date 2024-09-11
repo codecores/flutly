@@ -1,14 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutly/core/flulty_fonts.dart';
+import 'package:flutly/core/flutly_fonts.dart';
 import 'package:flutly/core/flutly_font.dart';
-import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class FlutlyText extends StatelessWidget {
   FlutlyText(
-    this.text, {
+    this.text, {super.key, 
     required this.font,
   }) {
     FlutlyFonts fonts = Get.find<FlutlyFonts>();
@@ -68,11 +68,10 @@ class FlutlyText extends StatelessWidget {
   List<TextSpan> getTextWidgets() {
     List<String> texts = text.split("|");
 
-    List<TextSpan> list = new List.empty(growable: true);
+    List<TextSpan> list = List.empty(growable: true);
 
     for (var i = 0; i < texts.length; i++) {
       String editText = texts[i];
-      int colorCode = int.parse(editText.substring(0, 1));
       String newText = editText.substring(1, editText.length);
 
       list.add(

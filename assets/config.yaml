@@ -54,10 +54,10 @@ colors:
     app_bar:
       background_color: 255,255,255
     drawer:
-      background_color: 255,255,255
+      background_color: 100,100,100
       shadow_color: 0,0,0
     dialog:
-      background_color: 255,255,255
+      background_color: 100,100,100
       icon_color: 0,0,0
       barrier_color: 0,0,0
       shadow_color: 100,250,50

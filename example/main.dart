@@ -22,15 +22,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  void test(BuildContext context) async {
-    await Future.delayed(const Duration(seconds: 3));
-    Flutly.setLocale(context, const Locale("tr"));
-  }
-
   @override
   Widget build(BuildContext context) {
     Flutly.screenConfiguration(context);
-    test(context);
     
     return FlutlyApp(
       title: 'Flutter Demo',

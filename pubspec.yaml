@@ -1,5 +1,5 @@
 name: flutly
-description: "A new Flutter project."
+description: "Flutly is a modern and customizable Flutter library that offers a collection of flexible and user-friendly widgets and tools."
 version: 1.0.0+1
 homepage: https://github.com/codecores/flutly
 
@@ -20,7 +20,11 @@ dependencies:
   easy_localization: ^3.0.7
   go_router: ^14.2.7
   flutter_svg: ^2.0.10+1
-
+  flutter_bounceable: ^1.1.0
+  flutter_animate: ^4.5.0
+  blur: ^4.0.0
+  vibration: ^2.0.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -49,7 +49,7 @@ class FlutlyTransaction {
       barrierDismissible: true,
       barrierColor: Colors.black38,
       opaque: false,
-      transitionDuration: const Duration(milliseconds: 50),
+      transitionDuration: const Duration(milliseconds: 1),
       reverseTransitionDuration:
           const Duration(milliseconds: 0), // Kapanış animasyonu yok
       transitionsBuilder: (BuildContext context, Animation<double> animation,

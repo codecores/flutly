@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 // ignore: must_be_immutable
 class FlutlyVariableText extends FlutlyText {
   FlutlyVariableText(
-    this.tag, {
+    this.tag, {super.key, 
     required String font,
   }) : super(
           "",

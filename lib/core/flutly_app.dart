@@ -1,13 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutly/core/flutly_app_bar.dart';
-import 'package:flutly/core/flutly_bottom_bar.dart';
+import 'package:flutly/core/flutly_app_bar/flutly_ab_section.dart';
+import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
+import 'package:flutly/core/flutly_bottom_bar/flutly_bb_section.dart';
+import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_config.dart';
 import 'package:flutly/core/flutly_page.dart';
 import 'package:flutly/core/flutly_theme.dart';
 import 'package:flutly/core/flutly_transaction.dart';
 import 'package:flutly/flutly.dart';
 import 'package:flutly/models/flutly_bottom_bar_item.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';/*  */
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -98,7 +100,19 @@ class _FlutlyAppState extends State<FlutlyApp> {
   @override
   void initState() {
     List<RouteBase> routes = List.empty(growable: true);
+    routes.addAll(registerRoutes());
+    routes.addAll(registerNavigationRoutes());
 
+    router = GoRouter(
+      navigatorKey: GlobalKey<NavigatorState>(),
+      routes: routes,
+    );
+
+    super.initState();
+  }
+
+  List<RouteBase> registerRoutes() {
+    List<RouteBase> routes = List.empty(growable: true);
     for (var route in widget.pages) {
       routes.add(
         GoRoute(
@@ -106,13 +120,25 @@ class _FlutlyAppState extends State<FlutlyApp> {
           path: route.path,
           onExit: route.onExit,
           pageBuilder: (BuildContext context, GoRouterState state) {
-            Get.find<FlutlyConfig>().setCurrentRoute(state.path!);
+            Get.find<FlutlyConfig>().setCurrentRoute(
+              state.fullPath!,
+              widget.bottomBar!
+                      .getItemWithPath(state.fullPath!)!
+                      .appBarHeight ??
+                  0,
+            );
             return FlutlyTransaction.getDefaultTransaction(
                 state.pageKey, route.page);
           },
         ),
       );
     }
+
+    return routes;
+  }
+
+  List<RouteBase> registerNavigationRoutes() {
+    List<RouteBase> routes = List.empty(growable: true);
 
     if (widget.bottomBar != null) {
       if (widget.bottomBar!.items.isNotEmpty) {
@@ -127,8 +153,14 @@ class _FlutlyAppState extends State<FlutlyApp> {
                   path: route.page.path,
                   onExit: route.page.onExit,
                   pageBuilder: (BuildContext context, GoRouterState state) {
-                    Get.find<FlutlyConfig>().setCurrentRoute(state.fullPath!);
-                    return FlutlyTransaction.getFadeTransaction(
+                    Get.find<FlutlyConfig>().setCurrentRoute(
+                      state.fullPath!,
+                      widget.bottomBar!
+                              .getItemWithPath(state.fullPath!)!
+                              .appBarHeight ??
+                          0,
+                    );
+                    return FlutlyTransaction.getDefaultTransaction(
                         state.pageKey, route.page.page);
                   },
                 ),
@@ -141,7 +173,13 @@ class _FlutlyAppState extends State<FlutlyApp> {
               path: route.page.path,
               onExit: route.page.onExit,
               pageBuilder: (BuildContext context, GoRouterState state) {
-                Get.find<FlutlyConfig>().setCurrentRoute(state.fullPath!);
+                Get.find<FlutlyConfig>().setCurrentRoute(
+                  state.fullPath!,
+                  widget.bottomBar!
+                          .getItemWithPath(state.fullPath!)!
+                          .appBarHeight ??
+                      0,
+                );
                 return FlutlyTransaction.getFadeTransaction(
                     state.pageKey, route.page.page);
               },
@@ -154,92 +192,63 @@ class _FlutlyAppState extends State<FlutlyApp> {
           ShellRoute(
             routes: navigationRoutes,
             builder: (context, state, child) {
+              Get.find<FlutlyConfig>().context = context;
               return Scaffold(
-                backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-                bottomNavigationBar: Container(
-                  width: double.infinity,
-                  height: widget.bottomBar!.height ?? 80,
-                  color: widget.bottomBar!.color ?? Colors.black,
-                  child: SafeArea(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        for (int i = 0; i < widget.bottomBar!.items.length; i++)
-                          GestureDetector(
-                            onTap: () {
-                              if (widget.bottomBar!.items[i].page.path !=
-                                  Get.find<FlutlyConfig>().getCurrentRoute()) {
-                                context
-                                    .go(widget.bottomBar!.items[i].page.path);
-                              }
-                            },
-                            child: SizedBox(
-                              width: 50,
-                              height: double.infinity,
-                              child: Center(
-                                child: SizedBox(
-                                  width: widget.bottomBar!.itemSize ?? 30,
-                                  height: widget.bottomBar!.itemSize ?? 30,
-                                  child: widget.bottomBar!.items[i].activePath,
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                bottomNavigationBar:
+                    FlutlyBbSection(bottomBar: widget.bottomBar!),
                 body: Container(
                   width: double.infinity,
                   height: double.infinity,
-                  color: Theme.of(context).appBarTheme.backgroundColor,
-                  child: Column(
-                    children: [
-                      widget.appBar != null
-                          ? GetBuilder<FlutlyConfig>(
-                              builder: (controller) {
-                                FlutlyBottomBarItem? item = widget.bottomBar!
-                                    .getItemWithPath(
-                                        controller.getCurrentRoute());
-                                if (item == null) return const SizedBox();
-                                if (widget.appBar!.isAnimated()) {
-                                  return AnimatedContainer(
-                                    width: double.infinity,
-                                    height: item.appBarHeight ?? 80,
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeInOutCubic,
-                                    alignment: Alignment.center,
-                                    color: widget.appBar!.color ??
-                                        Theme.of(context)
-                                            .appBarTheme
-                                            .backgroundColor,
-                                    child: SafeArea(child: item.appBar!),
-                                  );
-                                }
-                                return Container(
-                                  width: double.infinity,
-                                  height: item.appBarHeight ?? 80,
-                                  alignment: Alignment.center,
-                                  color: widget.appBar!.color ??
-                                      Theme.of(context)
-                                          .appBarTheme
-                                          .backgroundColor,
-                                  child: SafeArea(child: item.appBar!),
-                                );
-                              },
-                            )
-                          : Container(
-                              width: double.infinity,
-                              height: 50,
-                              color: widget.appBar!.color ??
-                                  Theme.of(context).appBarTheme.backgroundColor,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: GetBuilder<FlutlyConfig>(
+                    builder: (controller) {
+                      FlutlyBottomBarItem? item = widget.bottomBar!
+                          .getItemWithPath(controller.getCurrentRoute());
+
+                      double appBarHeight = 80;
+                      if (item != null) appBarHeight = item.appBarHeight ?? 80;
+
+                      bool appBarAnimated = false;
+
+                      if (widget.appBar != null) {
+                        appBarAnimated = widget.appBar!.isAnimated();
+                      }
+
+                      return Stack(
+                        children: [
+                          Container(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            child: Column(
+                              children: [
+                                appBarAnimated
+                                    ? AnimatedContainer(
+                                        width: double.infinity,
+                                        height: appBarHeight,
+                                        duration:
+                                            const Duration(milliseconds: 300),
+                                        curve: Curves.easeInOutCubic,
+                                      )
+                                    : SizedBox(
+                                        width: double.infinity,
+                                        height: appBarHeight,
+                                      ),
+                                Flexible(
+                                  child: SizedBox.expand(
+                                    child: child,
+                                  ),
+                                ),
+                              ],
                             ),
-                      Flexible(
-                        child: SizedBox.expand(
-                          child: child,
-                        ),
-                      ),
-                    ],
+                          ),
+                          FlutlyAbSection(
+                            appBar: widget.appBar,
+                            appBarHeight: appBarHeight,
+                            item: item,
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               );
@@ -249,16 +258,12 @@ class _FlutlyAppState extends State<FlutlyApp> {
       }
     }
 
-    router = GoRouter(
-      navigatorKey: GlobalKey<NavigatorState>(),
-      routes: routes,
-    );
-
-    super.initState();
+    return routes;
   }
 
   @override
   Widget build(BuildContext context) {
+    
     return ScreenUtilInit(
       designSize: Size(Flutly.screenInitialWidth, Flutly.screenInitialHeight),
       minTextAdapt: true,
@@ -267,7 +272,7 @@ class _FlutlyAppState extends State<FlutlyApp> {
       child: GetBuilder<FlutlyTheme>(
         builder: (controller) {
           return MaterialApp.router(
-            title: 'Flutter Demo',
+            title: widget.title,
             theme: widget.theme ?? controller.getThemeData(),
             scaffoldMessengerKey: widget.scaffoldMessengerKey,
             backButtonDispatcher: widget.backButtonDispatcher,
