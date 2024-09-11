@@ -13,11 +13,8 @@ class FlutlyConfig extends GetxController {
   double screenInitialWidth = 0.0;
   double screenInitialHeight = 0.0;
 
-  Future<void> setup() async {
-    final yamlString = await rootBundle.loadString('assets/config.yaml');
-    YamlMap yamlData = loadYaml(yamlString);
-
-    yamlData.forEach(
+  Future<void> setup(YamlMap config) async {
+    config.forEach(
       (key, value) {
         FlutlyVariable variable = FlutlyVariable(key, value);
         variables.putIfAbsent(key, () => variable);

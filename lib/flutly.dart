@@ -44,11 +44,11 @@ class Flutly {
   static double screenInitialWidth = 0.0;
   static double screenInitialHeight = 0.0;
 
-  static Future<void> setup(Widget main) async {
+  static Future<void> setup(YamlMap configYaml, Widget main) async {
     await EasyLocalization.ensureInitialized();
 
     FlutlyConfig config = FlutlyConfig();
-    await config.setup();
+    await config.setup(configYaml);
     Get.put(config);
 
     Get.put(FlutlyTheme());
