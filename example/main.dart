@@ -11,12 +11,16 @@ import 'package:flutly/test/main_page.dart';
 import 'package:flutly/test/other_page.dart';
 import 'package:flutly/test/second_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:yaml/yaml.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Flutly.setup(const MyApp());
+  final yamlString = await rootBundle.loadString('assets/config.yaml');
+  YamlMap yamlData = loadYaml(yamlString);
+  
+  await Flutly.setup(yamlData, const MyApp());
 }
 
 class MyApp extends StatelessWidget {

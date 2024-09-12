@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/external/fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vibration/vibration.dart';
 import 'package:yaml/yaml.dart';
 
@@ -69,6 +70,29 @@ class Flutly {
     );
   }
 
+  static FlutlyFonts getFlutlyFonts() => Get.find<FlutlyFonts>();
+
+  static FlutlyTheme getFlutlyTheme() => Get.find<FlutlyTheme>();
+
+  static FlutlyConfig getFlutlyConfig() => Get.find<FlutlyConfig>();
+
+  static FlutlyVariable getFlutlyVariable({String? tag}) =>
+      Get.find<FlutlyVariable>(tag: tag);
+
+  static void put<S>(S dependency,
+          {String? tag,
+          bool permanent = false,
+          InstanceBuilderCallback<S>? builder}) =>
+      Get.put(dependency, tag: tag, permanent: permanent, builder: builder);
+
+  static void putAsync<S>(AsyncInstanceBuilderCallback<S> builder,
+          {String? tag, bool permanent = false}) =>
+      Get.putAsync(builder, tag: tag, permanent: permanent);
+
+  static void changeTheme(ThemeType themeType) {
+    Get.find<FlutlyTheme>().changeTheme(themeType);
+  }
+
   static void setLocale(BuildContext context, Locale locale) {
     context.setLocale(locale);
   }
@@ -90,6 +114,27 @@ class Flutly {
 
     screenInitialWidth = MediaQuery.sizeOf(context).width;
     screenInitialHeight = MediaQuery.sizeOf(context).height;
+  }
+
+  static void go(BuildContext context, String location, {Object? extra}) {
+    context.go(location, extra: extra);
+  }
+
+  static void goNamed(
+    BuildContext context,
+    String name, {
+    Map<String, String> pathParameters = const <String, String>{},
+    Map<String, dynamic> queryParameters = const <String, dynamic>{},
+    Object? extra,
+  }) {
+    context.goNamed(name,
+        extra: extra,
+        pathParameters: pathParameters,
+        queryParameters: queryParameters);
+  }
+
+  static void pop<T extends Object?>(BuildContext context, [T? result]) {
+    context.pop(result);
   }
 
   static showToast({
@@ -132,10 +177,8 @@ class Flutly {
     );
   }
 
-  static void showDialog(
-    BuildContext context,
-    {required FlutlyDialogApperiances apperiances}
-  ) {
+  static void showDialog(BuildContext context,
+      {required FlutlyDialogApperiances apperiances}) {
     showGeneralDialog(
       context: context,
       barrierLabel: "Barrier",
@@ -172,10 +215,10 @@ class Flutly {
     );
   }
 
-  void vibrate() async{
+  void vibrate() async {
     bool? hasVibration = await Vibration.hasVibrator();
-    if(hasVibration == null) return;
-    if(!hasVibration) return;
+    if (hasVibration == null) return;
+    if (!hasVibration) return;
 
     Vibration.vibrate();
   }
