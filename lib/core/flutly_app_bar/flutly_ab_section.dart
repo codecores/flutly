@@ -28,7 +28,7 @@ class FlutlyAbSection extends StatelessWidget {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOutCubic,
         alignment: Alignment.center,
-        color: appBar!.color ?? Colors.transparent,
+        color: appBar!.color ?? Theme.of(context).scaffoldBackgroundColor,
         child: SafeArea(child: item!.appBar!),
       );
     }
@@ -37,7 +37,7 @@ class FlutlyAbSection extends StatelessWidget {
         width: double.infinity,
         height: appBarHeight,
         alignment: Alignment.center,
-        color: appBar!.color ?? Colors.transparent,
+        color: appBar!.color ?? Theme.of(context).scaffoldBackgroundColor,
         child: SafeArea(child: item!.appBar!),
       );
   }

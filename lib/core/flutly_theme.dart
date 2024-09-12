@@ -80,6 +80,7 @@ class FlutlyTheme extends GetxController {
 
   void setup() {
     if (selectedTheme == ThemeType.light) {
+      print("THEME COLOR : Tema light");
       themeData = Rx(
         ThemeData.light().copyWith(
           scaffoldBackgroundColor: getColor("backgroundColor"),
@@ -108,6 +109,14 @@ class FlutlyTheme extends GetxController {
         ),
       );
     } else {
+      print("THEME COLOR : Tema dark");
+      print("THEME COLOR : " +
+          getColor("backgroundColor")!.red.toString() +
+          "," +
+          getColor("backgroundColor")!.green.toString() +
+          "," +
+          getColor("backgroundColor")!.blue.toString());
+
       themeData = Rx(
         ThemeData.dark().copyWith(
           scaffoldBackgroundColor: getColor("backgroundColor"),

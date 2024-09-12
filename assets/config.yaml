@@ -37,7 +37,7 @@ custom_colors:
 colors:
   dark:
     primary:
-      background_color: 0,0,0
+      background_color: 14,18,27
       hint_color: 0,0,0
       focus_color: 50,50,50
       disabled_color: 50,50,50
@@ -63,7 +63,7 @@ colors:
       shadow_color: 100,250,50
   light:
     primary:
-      background_color: 255,255,255
+      background_color: 0,0,0
       text_color: 0,0,0
       hint_color: 0,0,0
       button_color: 100,250,50

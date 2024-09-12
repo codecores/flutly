@@ -9,7 +9,7 @@ import 'package:flutly/core/flutly_theme.dart';
 import 'package:flutly/core/flutly_transaction.dart';
 import 'package:flutly/flutly.dart';
 import 'package:flutly/models/flutly_bottom_bar_item.dart';
-import 'package:flutter/material.dart';/*  */
+import 'package:flutter/material.dart'; /*  */
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -194,62 +194,49 @@ class _FlutlyAppState extends State<FlutlyApp> {
             builder: (context, state, child) {
               Get.find<FlutlyConfig>().context = context;
               return Scaffold(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 bottomNavigationBar:
                     FlutlyBbSection(bottomBar: widget.bottomBar!),
-                body: Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: GetBuilder<FlutlyConfig>(
-                    builder: (controller) {
-                      FlutlyBottomBarItem? item = widget.bottomBar!
-                          .getItemWithPath(controller.getCurrentRoute());
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                body: GetBuilder<FlutlyConfig>(
+                  builder: (controller) {
+                    FlutlyBottomBarItem? item = widget.bottomBar!
+                        .getItemWithPath(controller.getCurrentRoute());
 
-                      double appBarHeight = 80;
-                      if (item != null) appBarHeight = item.appBarHeight ?? 80;
+                    double appBarHeight = 80;
+                    if (item != null) appBarHeight = item.appBarHeight ?? 80;
 
-                      bool appBarAnimated = false;
+                    bool appBarAnimated = false;
 
-                      if (widget.appBar != null) {
-                        appBarAnimated = widget.appBar!.isAnimated();
-                      }
+                    if (widget.appBar != null) {
+                      appBarAnimated = widget.appBar!.isAnimated();
+                    }
 
-                      return Stack(
-                        children: [
-                          Container(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            child: Column(
-                              children: [
-                                appBarAnimated
-                                    ? AnimatedContainer(
-                                        width: double.infinity,
-                                        height: appBarHeight,
-                                        duration:
-                                            const Duration(milliseconds: 300),
-                                        curve: Curves.easeInOutCubic,
-                                      )
-                                    : SizedBox(
-                                        width: double.infinity,
-                                        height: appBarHeight,
-                                      ),
-                                Flexible(
-                                  child: SizedBox.expand(
-                                    child: child,
+                    return Stack(
+                      children: [
+                        Column(
+                          children: [
+                            appBarAnimated
+                                ? AnimatedContainer(
+                                    width: double.infinity,
+                                    height: appBarHeight,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeInOutCubic,
+                                  )
+                                : SizedBox(
+                                    width: double.infinity,
+                                    height: appBarHeight,
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          FlutlyAbSection(
-                            appBar: widget.appBar,
-                            appBarHeight: appBarHeight,
-                            item: item,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
+                            Flexible(child: child),
+                          ],
+                        ),
+                        FlutlyAbSection(
+                          appBar: widget.appBar,
+                          appBarHeight: appBarHeight,
+                          item: item,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               );
             },
@@ -263,7 +250,6 @@ class _FlutlyAppState extends State<FlutlyApp> {
 
   @override
   Widget build(BuildContext context) {
-    
     return ScreenUtilInit(
       designSize: Size(Flutly.screenInitialWidth, Flutly.screenInitialHeight),
       minTextAdapt: true,

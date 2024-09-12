@@ -3,6 +3,7 @@ import 'package:flutly/core/flutly_app.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_page.dart';
+import 'package:flutly/enums/theme_type.dart';
 import 'package:flutly/flutly.dart';
 import 'package:flutly/models/flutly_bottom_bar_item.dart';
 import 'package:flutly/test/five_page.dart';
@@ -20,7 +21,7 @@ void main() async {
 
   final yamlString = await rootBundle.loadString('assets/config.yaml');
   YamlMap yamlData = loadYaml(yamlString);
-    
+
   await Flutly.setup(yamlData, const MyApp());
 }
 
@@ -29,14 +30,14 @@ class MyApp extends StatelessWidget {
 
   void test(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 3));
-    Flutly.setLocale(context, const Locale("tr"));
+    Flutly.changeTheme(ThemeType.light);
   }
 
   @override
   Widget build(BuildContext context) {
     Flutly.screenConfiguration(context);
-    test(context);
-    
+    //test(context);
+
     return FlutlyApp(
       title: 'Flutter Demo',
       localizationsDelegates: context.localizationDelegates,
@@ -45,12 +46,10 @@ class MyApp extends StatelessWidget {
       appBar: FlutlyAppBar(
         blured: false,
         animated: true,
-        color: const Color.fromRGBO(16, 17, 16, 1),
       ),
       bottomBar: FlutlyBottomBar(
         height: 60,
         itemSize: 30,
-        color: const Color.fromRGBO(16, 17, 16, 1),
         blured: true,
         items: [
           FlutlyBottomBarItem(

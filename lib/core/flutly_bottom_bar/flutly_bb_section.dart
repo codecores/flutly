@@ -14,7 +14,7 @@ class FlutlyBbSection extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: bottomBar.height ?? 80,
-      color: bottomBar.color ?? Colors.black,
+      color: bottomBar.color ?? Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
