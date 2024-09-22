@@ -1,4 +1,6 @@
+import 'package:flutly/core/flutly_app_bar/flutly_tab_controller.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_tab_view_controller.dart';
+import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 
 class FlutlyAppBar {
@@ -13,10 +15,8 @@ class FlutlyAppBar {
 
   Widget getWidget(Widget child) {
     if (tabViewController != null) {
-      return DefaultTabController(
-        length: tabViewController!.length,
-        animationDuration: tabViewController!.animationDuration,
-        initialIndex: tabViewController!.initalIndex!,
+      return FlutlyTabController(
+        viewController: tabViewController!,
         child: child,
       );
     }

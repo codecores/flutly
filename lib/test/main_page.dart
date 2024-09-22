@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/enums/button_type.dart';
+import 'package:flutly/flutly.dart';
 import 'package:flutly/widgets/flutly_button.dart';
 import 'package:flutly/widgets/flutly_text.dart';
 import 'package:flutly/widgets/flutly_textfield.dart';
@@ -17,6 +18,7 @@ class MainPage extends StatelessWidget {
         height: double.infinity,
         color: Colors.transparent,
         child: TabBarView(
+          controller: Flutly.getFlutlyVariable(tag: "tab_controller").getValue(),
           children: [
             Container(
               width: double.infinity,
