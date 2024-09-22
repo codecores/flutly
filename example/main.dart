@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
         height: 60,
         itemSize: 30,
         color: const Color.fromRGBO(16, 17, 16, 1),
-        blured: true,
+        blur: 2.5,
         items: [
           FlutlyBottomBarItem(
             page: FlutlyPage(

@@ -1,20 +1,36 @@
 import 'package:flutly/models/flutly_bottom_bar_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class FlutlyBottomBar {
   double? height;
   double? itemSize;
   Color? color;
-  bool? blured;
+  double? blur;
+  Widget? separator;
+  double? leadingHeight;
+  Widget? leading;
   List<FlutlyBottomBarItem> items;
 
-  FlutlyBottomBar(
-      {required this.items,
-      this.blured,
-      this.height,
-      this.itemSize,
-      this.color});
+  FlutlyBottomBar({
+    required this.items,
+    this.blur,
+    this.height,
+    this.itemSize,
+    this.color,
+    this.separator,
+    this.leadingHeight,
+    this.leading,
+  });
+
+  Color getColor(BuildContext context) => color ?? Theme.of(context).scaffoldBackgroundColor;
+
+  double getBarHeight() => getHeight() + getLeadingHeight();
+
+  double getHeight() => height ?? 80;
+
+  double getLeadingHeight() => leadingHeight ?? 0;
 
   FlutlyBottomBarItem? getItemWithPath(String path) {
     if (path == "/") {

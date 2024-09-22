@@ -194,8 +194,6 @@ class _FlutlyAppState extends State<FlutlyApp> {
             builder: (context, state, child) {
               Get.find<FlutlyConfig>().context = context;
               return Scaffold(
-                bottomNavigationBar:
-                    FlutlyBbSection(bottomBar: widget.bottomBar!),
                 backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 body: GetBuilder<FlutlyConfig>(
                   builder: (controller) {
@@ -233,6 +231,10 @@ class _FlutlyAppState extends State<FlutlyApp> {
                           appBar: widget.appBar,
                           appBarHeight: appBarHeight,
                           item: item,
+                        ),
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: FlutlyBbSection(bottomBar: widget.bottomBar!),
                         ),
                       ],
                     );
