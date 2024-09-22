@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       appBar: FlutlyAppBar(
-        blured: false,
         animated: true,
         color: const Color.fromRGBO(16, 17, 16, 1),
       ),

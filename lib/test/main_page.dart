@@ -16,77 +16,90 @@ class MainPage extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         color: Colors.transparent,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 10),
-              SizedBox(
-                width: double.infinity,
-                child: FlutlyTextfield(
-                  height: 50,
-                  textFieldDecoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: const Color.fromARGB(255, 31, 31, 31),
-                  ),
-                  inputDecoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Search for your favoutie Anime',
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
+        child: TabBarView(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: FlutlyTextfield(
+                        height: 50,
+                        textFieldDecoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: const Color.fromARGB(255, 31, 31, 31),
+                        ),
+                        inputDecoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search for your favoutie Anime',
+                          hintStyle: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                        textFieldStyle: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                        expanded: false,
+                      ),
                     ),
-                  ),
-                  textFieldStyle: const TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                  ),
-                  expanded: false,
+                    const SizedBox(height: 10),
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                      ),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              ),
-              Container(
-                width: double.infinity,
-                height: 200,
-                decoration: const BoxDecoration(
-                  color: Colors.black,
-                  borderRadius: BorderRadius.all(Radius.circular(30)),
-                ),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              ),
-            ],
-          ),
+            ),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              color: Colors.red,
+            ),
+          ],
         ),
       ),
     );

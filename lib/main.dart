@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/core/flutly_app.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
+import 'package:flutly/core/flutly_app_bar/flutly_tab_view_controller.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_page.dart';
 import 'package:flutly/enums/theme_type.dart';
@@ -8,6 +9,7 @@ import 'package:flutly/flutly.dart';
 import 'package:flutly/models/flutly_bottom_bar_item.dart';
 import 'package:flutly/test/five_page.dart';
 import 'package:flutly/test/four_page.dart';
+import 'package:flutly/test/main_app_bar.dart';
 import 'package:flutly/test/main_page.dart';
 import 'package:flutly/test/other_page.dart';
 import 'package:flutly/test/second_page.dart';
@@ -44,17 +46,26 @@ class MyApp extends StatelessWidget {
       supportedLocales: context.supportedLocales,
       locale: context.locale,
       appBar: FlutlyAppBar(
-        blured: false,
         animated: true,
+        tabViewController: FlutlyTabViewController(
+          length: 2,
+        ),
       ),
       bottomBar: FlutlyBottomBar(
         height: 80,
         itemSize: 30,
         blur: 10,
-        separator: Container(height: 0.5, color: Colors.grey,),
+        separator: Container(
+          height: 0.5,
+          color: Colors.grey,
+        ),
         color: const Color.fromRGBO(14, 18, 27, 0.24),
         leadingHeight: 100,
-        leading: Container(width: double.infinity, height: 200, color: Colors.red,),
+        leading: Container(
+          width: double.infinity,
+          height: 200,
+          color: Colors.red,
+        ),
         items: [
           FlutlyBottomBarItem(
             page: FlutlyPage(
@@ -63,12 +74,8 @@ class MyApp extends StatelessWidget {
               page: const MainPage(),
             ),
             activePath: SvgPicture.asset("assets/bottom_bar/home_active.svg"),
-            appBar: Container(
-              width: 200,
-              height: 50,
-              color: Colors.red,
-            ),
-            appBarHeight: 100,
+            appBar: MainAppBar(),
+            appBarHeight: 70,
           ),
           FlutlyBottomBarItem(
               page: FlutlyPage(

@@ -209,34 +209,38 @@ class _FlutlyAppState extends State<FlutlyApp> {
                       appBarAnimated = widget.appBar!.isAnimated();
                     }
 
-                    return Stack(
-                      children: [
-                        Column(
-                          children: [
-                            appBarAnimated
-                                ? AnimatedContainer(
-                                    width: double.infinity,
-                                    height: appBarHeight,
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeInOutCubic,
-                                  )
-                                : SizedBox(
-                                    width: double.infinity,
-                                    height: appBarHeight,
-                                  ),
-                            Flexible(child: child),
-                          ],
-                        ),
-                        FlutlyAbSection(
-                          appBar: widget.appBar,
-                          appBarHeight: appBarHeight,
-                          item: item,
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: FlutlyBbSection(bottomBar: widget.bottomBar!),
-                        ),
-                      ],
+                    return widget.appBar!.getWidget(
+                      Stack(
+                        children: [
+                          Column(
+                            children: [
+                              appBarAnimated
+                                  ? AnimatedContainer(
+                                      width: double.infinity,
+                                      height: appBarHeight,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.easeInOutCubic,
+                                    )
+                                  : SizedBox(
+                                      width: double.infinity,
+                                      height: appBarHeight,
+                                    ),
+                              Flexible(child: child),
+                            ],
+                          ),
+                          FlutlyAbSection(
+                            appBar: widget.appBar,
+                            appBarHeight: appBarHeight,
+                            item: item,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child:
+                                FlutlyBbSection(bottomBar: widget.bottomBar!),
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
