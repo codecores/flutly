@@ -12,6 +12,8 @@ class FlutlyBottomBar {
   double? leadingHeight;
   Widget? leading;
   List<FlutlyBottomBarItem> items;
+  
+  bool? autoHide;
 
   FlutlyBottomBar({
     required this.items,
@@ -22,6 +24,7 @@ class FlutlyBottomBar {
     this.separator,
     this.leadingHeight,
     this.leading,
+    this.autoHide,
   });
 
   Color getColor(BuildContext context) => color ?? Theme.of(context).scaffoldBackgroundColor;
@@ -31,6 +34,8 @@ class FlutlyBottomBar {
   double getHeight() => height ?? 80;
 
   double getLeadingHeight() => leadingHeight ?? 0;
+
+  bool canAutoHide() => autoHide ?? true;
 
   FlutlyBottomBarItem? getItemWithPath(String path) {
     if (path == "/") {

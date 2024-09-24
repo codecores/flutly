@@ -1,3 +1,4 @@
+import 'package:flutly/core/flutly_tab_bar/flutly_tab_view_controller.dart';
 import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,10 @@ class FlutlyConfig extends GetxController {
 
   double screenInitialWidth = 0.0;
   double screenInitialHeight = 0.0;
+
+  bool bottomBarHidden = false;
+
+  List<FlutlyTabViewController> tabBars = List.empty(growable: true);
 
   Future<void> setup(YamlMap config) async {
     config.forEach(
@@ -48,6 +53,11 @@ class FlutlyConfig extends GetxController {
     await Future.delayed(const Duration(milliseconds: 10));
     currentRoute = RxString(route);
     currentAppBarHeight = RxDouble(appBarHeight);
+    update();
+  }
+
+  void setBottomBarHidden(bool value){
+    this.bottomBarHidden = value;
     update();
   }
 }

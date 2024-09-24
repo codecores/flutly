@@ -12,7 +12,7 @@ class MainAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutlyBuilder<FlutlyVariable>(
-      tag: "tab_controller",
+      tag: "main_tab_controller",
       builder: (controller) {
         TabController tabController = controller.getValue();
         return Padding(

@@ -1,5 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutly/apperiances/flutly_dialog_apperiances.dart';
+import 'package:flutly/core/flutly_tab_bar/flutly_tab_controller.dart';
 import 'package:flutly/enums/button_type.dart';
+import 'package:flutly/enums/dialog_type.dart';
 import 'package:flutly/flutly.dart';
 import 'package:flutly/widgets/flutly_button.dart';
 import 'package:flutly/widgets/flutly_text.dart';
@@ -18,7 +21,8 @@ class MainPage extends StatelessWidget {
         height: double.infinity,
         color: Colors.transparent,
         child: TabBarView(
-          controller: Flutly.getFlutlyVariable(tag: "tab_controller").getValue(),
+          controller:
+              Flutly.getFlutlyVariable(tag: "main_tab_controller").getValue(),
           children: [
             Container(
               width: double.infinity,
@@ -52,25 +56,37 @@ class MainPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                    FlutlyButton(
+                      buttonType: ButtonType.BOUNCING,
+                      onTap: () {
+                        Flutly.closeBottomBar();
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 20),
                       ),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 20),
                     ),
-                    Container(
-                      width: double.infinity,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                    FlutlyButton(
+                      buttonType: ButtonType.BOUNCING,
+                      onTap: () {
+                        Flutly.openBottomBar();
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                        ),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 20),
                       ),
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 20),
                     ),
                     Container(
                       width: double.infinity,

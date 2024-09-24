@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_ab_section.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
+import 'package:flutly/core/flutly_tab_bar/flutly_multi_tab_controller.dart';
+import 'package:flutly/core/flutly_tab_bar/flutly_tab_controller.dart';
+import 'package:flutly/core/flutly_tab_bar/flutly_tab_view_controller.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bb_section.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_config.dart';
@@ -18,6 +21,7 @@ class FlutlyApp extends StatefulWidget {
   final List<FlutlyPage> pages;
   final FlutlyBottomBar? bottomBar;
   final FlutlyAppBar? appBar;
+  final List<FlutlyTabViewController>? tabBars;
   final GlobalKey<ScaffoldMessengerState>? scaffoldMessengerKey;
   final RouteInformationProvider? routeInformationProvider;
   final RouteInformationParser<Object>? routeInformationParser;
@@ -54,6 +58,7 @@ class FlutlyApp extends StatefulWidget {
     required this.pages,
     this.bottomBar,
     this.appBar,
+    this.tabBars,
     this.scaffoldMessengerKey,
     this.routeInformationProvider,
     this.routeInformationParser,
@@ -107,6 +112,15 @@ class _FlutlyAppState extends State<FlutlyApp> {
       navigatorKey: GlobalKey<NavigatorState>(),
       routes: routes,
     );
+
+    if (widget.tabBars != null) {
+      Flutly.getFlutlyConfig().tabBars.clear();
+      widget.tabBars!.forEach(
+        (element) {
+          Flutly.getFlutlyConfig().tabBars.add(element);
+        },
+      );
+    }
 
     super.initState();
   }
@@ -193,24 +207,27 @@ class _FlutlyAppState extends State<FlutlyApp> {
             routes: navigationRoutes,
             builder: (context, state, child) {
               Get.find<FlutlyConfig>().context = context;
-              return Scaffold(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                body: GetBuilder<FlutlyConfig>(
-                  builder: (controller) {
-                    FlutlyBottomBarItem? item = widget.bottomBar!
-                        .getItemWithPath(controller.getCurrentRoute());
+              return FlutlyMultiTabController(
+                controllers: Flutly.getFlutlyConfig().tabBars,
+                child: Scaffold(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  body: GetBuilder<FlutlyConfig>(
+                    builder: (controller) {
+                      FlutlyBottomBarItem? item = widget.bottomBar!
+                          .getItemWithPath(controller.getCurrentRoute());
 
-                    double appBarHeight = 80;
-                    if (item != null) appBarHeight = item.appBarHeight ?? 80;
+                      double appBarHeight = 80;
+                      if (item != null) appBarHeight = item.appBarHeight ?? 80;
 
-                    bool appBarAnimated = false;
+                      bool appBarAnimated = false;
 
-                    if (widget.appBar != null) {
-                      appBarAnimated = widget.appBar!.isAnimated();
-                    }
+                      if (widget.appBar != null) {
+                        appBarAnimated = widget.appBar!.isAnimated();
+                      }
 
-                    return widget.appBar!.getWidget(
-                      Stack(
+                      appBarHeight += MediaQuery.of(context).padding.top;
+
+                      return Stack(
                         children: [
                           Column(
                             children: [
@@ -240,9 +257,9 @@ class _FlutlyAppState extends State<FlutlyApp> {
                                 FlutlyBbSection(bottomBar: widget.bottomBar!),
                           ),
                         ],
-                      ),
-                    );
-                  },
+                      );
+                    },
+                  ),
                 ),
               );
             },

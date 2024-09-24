@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/core/flutly_app.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
-import 'package:flutly/core/flutly_app_bar/flutly_tab_view_controller.dart';
+import 'package:flutly/core/flutly_tab_bar/flutly_tab_view_controller.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_page.dart';
 import 'package:flutly/enums/theme_type.dart';
@@ -45,11 +45,14 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      appBar: FlutlyAppBar(
-        animated: true,
-        tabViewController: FlutlyTabViewController(
+      tabBars: [
+        FlutlyTabViewController(
+          tag: "main_tab_controller",
           length: 2,
         ),
+      ],
+      appBar: FlutlyAppBar(
+        animated: true,
       ),
       bottomBar: FlutlyBottomBar(
         height: 80,
@@ -60,7 +63,7 @@ class MyApp extends StatelessWidget {
           color: Colors.grey,
         ),
         color: const Color.fromRGBO(14, 18, 27, 0.24),
-        leadingHeight: 100,
+        leadingHeight: 0,
         leading: Container(
           width: double.infinity,
           height: 200,

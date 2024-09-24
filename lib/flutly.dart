@@ -137,6 +137,9 @@ class Flutly {
     context.pop(result);
   }
 
+  static void openBottomBar() => getFlutlyConfig().setBottomBarHidden(false);
+  static void closeBottomBar() => getFlutlyConfig().setBottomBarHidden(true);
+
   static showToast({
     required Duration duration,
     Widget? widget,
