@@ -57,11 +57,11 @@ class MyApp extends StatelessWidget {
       bottomBar: FlutlyBottomBar(
         height: 80,
         itemSize: 30,
-        blur: 10,
         separator: Container(
           height: 0.5,
           color: Colors.grey,
         ),
+        blur: 10,
         color: const Color.fromRGBO(14, 18, 27, 0.24),
         leadingHeight: 0,
         leading: Container(

@@ -3,7 +3,10 @@ import 'package:flutly/apperiances/flutly_dialog_apperiances.dart';
 import 'package:flutly/core/flutly_tab_bar/flutly_tab_controller.dart';
 import 'package:flutly/enums/button_type.dart';
 import 'package:flutly/enums/dialog_type.dart';
+import 'package:flutly/external/modal_bottom_sheet/src/bottom_sheets/material_bottom_sheet.dart';
+import 'package:flutly/external/modal_bottom_sheet/src/utils/modal_scroll_controller.dart';
 import 'package:flutly/flutly.dart';
+import 'package:flutly/test/sheets/order_sheet.dart';
 import 'package:flutly/widgets/flutly_button.dart';
 import 'package:flutly/widgets/flutly_text.dart';
 import 'package:flutly/widgets/flutly_textfield.dart';
@@ -75,7 +78,16 @@ class MainPage extends StatelessWidget {
                     FlutlyButton(
                       buttonType: ButtonType.BOUNCING,
                       onTap: () {
-                        Flutly.openBottomBar();
+                        showMaterialModalBottomSheet(
+                          context: context,
+                          builder: (context) => SingleChildScrollView(
+                            controller: ModalScrollController.of(context),
+                            child: const OrderSheet(),
+                          ),
+                          blur: 10,
+                          blurColor: const Color.fromRGBO(255, 255, 255, 0.10),
+                          useRootNavigator: true,
+                        );
                       },
                       child: Container(
                         width: double.infinity,
