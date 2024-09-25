@@ -7,9 +7,12 @@ class FlutlyBottomBarItem {
   Widget? deactivePath;
   Widget? appBar;
   double? appBarHeight;
+  FlutlyTransactionType? transactionType = FlutlyTransactionType.DEFAULT;
   List<FlutlyBottomBarItem>? children;
 
-  FlutlyBottomBarItem({required this.page, required this.activePath, this.appBar, this.appBarHeight, this.deactivePath, this.children}){
+  FlutlyBottomBarItem({required this.page, required this.activePath, this.appBar, this.appBarHeight, this.deactivePath, this.children, this.transactionType}){
     deactivePath ??= activePath;
   }
 }
+
+enum FlutlyTransactionType {DEFAULT, FADE}

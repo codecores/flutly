@@ -56,13 +56,18 @@ class MainPage extends StatelessWidget {
                           color: Colors.white,
                         ),
                         expanded: false,
+                        onFocus: () {
+                          print("KLAVYE : FOCUS OLDU");
+                        },
+                        onUnfocus: (){
+                          print("KLAVYE : FOCUS DIŞI OLDU");
+                        },
                       ),
                     ),
                     const SizedBox(height: 10),
                     FlutlyButton(
                       buttonType: ButtonType.BOUNCING,
                       onTap: () {
-                        Flutly.closeBottomBar();
                       },
                       child: Container(
                         width: double.infinity,

@@ -1,7 +1,17 @@
+import 'package:flutly/models/flutly_bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class FlutlyTransaction {
+
+  static Page<dynamic> getTransaction(FlutlyTransactionType type, LocalKey key, Widget widget){
+    if(type == FlutlyTransactionType.DEFAULT){
+      return getDefaultTransaction(key, widget);
+    }
+
+    return getFadeTransaction(key, widget);
+  }
+
   static Page<dynamic> getDefaultTransaction(LocalKey key, Widget widget) {
     return CustomTransitionPage<void>(
       key: key,

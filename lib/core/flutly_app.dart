@@ -174,8 +174,8 @@ class _FlutlyAppState extends State<FlutlyApp> {
                               .appBarHeight ??
                           0,
                     );
-                    return FlutlyTransaction.getDefaultTransaction(
-                        state.pageKey, route.page.page);
+                    return FlutlyTransaction.getTransaction(route.transactionType!,
+                    state.pageKey, route.page.page);
                   },
                 ),
               );
@@ -194,7 +194,7 @@ class _FlutlyAppState extends State<FlutlyApp> {
                           .appBarHeight ??
                       0,
                 );
-                return FlutlyTransaction.getFadeTransaction(
+                return FlutlyTransaction.getTransaction(route.transactionType!,
                     state.pageKey, route.page.page);
               },
               routes: childNavigationRoutes,

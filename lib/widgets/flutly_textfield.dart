@@ -1,3 +1,4 @@
+import 'package:flutly/flutly.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -6,6 +7,8 @@ class FlutlyTextfield extends StatefulWidget {
   Function(String)? onChanged;
   VoidCallback? onEditingComplete;
   VoidCallback? onTextfieldEmpty;
+  VoidCallback? onFocus;
+  VoidCallback? onUnfocus;
   double height;
   Widget leadingWidget;
   TextStyle textFieldStyle;
@@ -27,6 +30,8 @@ class FlutlyTextfield extends StatefulWidget {
     this.cursorColor,
     this.autofocus,
     this.expanded,
+    this.onFocus,
+    this.onUnfocus,
     this.leadingWidget = const SizedBox.shrink(),
     this.textFieldStyle = const TextStyle(fontSize: 13),
     this.textFieldDecoration = const BoxDecoration(color: Color(0xffE8E8E8)),
@@ -49,19 +54,36 @@ class FlutlyTextfield extends StatefulWidget {
 class _FlutlyTextfieldState extends State<FlutlyTextfield> {
   late StreamController<bool> _btnClearController;
   late TextEditingController _inputController;
+  FocusNode _focus = FocusNode();
 
   @override
   void initState() {
     super.initState();
     _btnClearController = StreamController<bool>();
     _inputController = TextEditingController();
+    _focus.addListener(_onFocusChange);
   }
 
   @override
   void dispose() {
     _btnClearController.close();
     _inputController.dispose();
+    _focus.removeListener(_onFocusChange);
     super.dispose();
+  }
+
+  void _onFocusChange() {
+    bool oldState = Flutly.getFlutlyConfig().keyboardShowing;
+    bool newState = _focus.hasFocus;
+
+    if(oldState == newState) return;
+    
+    if(newState) {
+      if(widget.onFocus != null) widget.onFocus!();
+    }else{
+      if(widget.onUnfocus != null) widget.onUnfocus!();
+    }
+    Flutly.getFlutlyConfig().setKeyboardShowing(_focus.hasFocus);
   }
 
   check(String text) {
@@ -92,12 +114,14 @@ class _FlutlyTextfieldState extends State<FlutlyTextfield> {
             Expanded(
               child: TextFormField(
                 controller: _inputController,
+                focusNode: _focus,
                 onChanged: (value) {
                   if (widget.onChanged != null) widget.onChanged!(value);
                   check(value);
                 },
-                onEditingComplete: (){
-                  if (widget.onEditingComplete != null) widget.onEditingComplete!();
+                onEditingComplete: () {
+                  if (widget.onEditingComplete != null)
+                    widget.onEditingComplete!();
                 },
                 cursorColor: widget.cursorColor,
                 autofocus: widget.autofocus ?? false,
@@ -116,6 +140,7 @@ class _FlutlyTextfieldState extends State<FlutlyTextfield> {
                           onTap: () {
                             _inputController.clear();
                             _btnClearController.add(false);
+                            FocusScope.of(context).unfocus();
                             if (widget.onTextfieldEmpty != null) {
                               widget.onTextfieldEmpty!();
                             }

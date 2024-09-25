@@ -15,6 +15,7 @@ class FlutlyConfig extends GetxController {
   double screenInitialHeight = 0.0;
 
   bool bottomBarHidden = false;
+  bool keyboardShowing = false;
 
   List<FlutlyTabViewController> tabBars = List.empty(growable: true);
 
@@ -57,7 +58,13 @@ class FlutlyConfig extends GetxController {
   }
 
   void setBottomBarHidden(bool value){
-    this.bottomBarHidden = value;
+    bottomBarHidden = value;
+    update();
+  }
+
+  void setKeyboardShowing(bool value){
+    if(keyboardShowing == value) return;
+    keyboardShowing = value;
     update();
   }
 }
