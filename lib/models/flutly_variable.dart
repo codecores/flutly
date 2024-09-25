@@ -25,8 +25,8 @@ class FlutlyVariable extends GetxController{
 
   void addChild(String key, FlutlyVariable variable) => getChildren().putIfAbsent(key, () => variable);
 
-  void changeValue(Rx<dynamic> newValue) {
-    value = newValue;
+  void changeValue(dynamic newValue) {
+    value = Rx<dynamic>(newValue);
     update();
   }
 }
