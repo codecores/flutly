@@ -51,9 +51,7 @@ class MyApp extends StatelessWidget {
           length: 2,
         ),
       ],
-      appBar: FlutlyAppBar(
-        animated: true,
-      ),
+      appBar: FlutlyAppBar(),
       bottomBar: FlutlyBottomBar(
         height: 80,
         itemSize: 30,
@@ -79,38 +77,42 @@ class MyApp extends StatelessWidget {
             activePath: SvgPicture.asset("assets/bottom_bar/home_active.svg"),
             appBar: MainAppBar(),
             appBarHeight: 70,
+            appBarAnimated: true,
+            transactionType: FlutlyTransactionType.FADE,
           ),
           FlutlyBottomBarItem(
-              page: FlutlyPage(
-                name: "Second",
-                path: "/second",
-                page: const SecondPage(),
-              ),
-              activePath:
-                  SvgPicture.asset("assets/bottom_bar/home2_active.svg"),
-              appBar: Container(
-                width: 200,
-                height: 50,
-                color: Colors.green,
-              ),
-              appBarHeight: 130,
-              children: [
-                FlutlyBottomBarItem(
-                  page: FlutlyPage(
-                    name: "Second2",
-                    path: "main",
-                    page: const MainPage(),
-                  ),
-                  activePath:
-                      SvgPicture.asset("assets/bottom_bar/home2_active.svg"),
-                  appBar: Container(
-                    width: 200,
-                    height: 50,
-                    color: Colors.yellow,
-                  ),
-                  appBarHeight: 80,
+            page: FlutlyPage(
+              name: "Second",
+              path: "/second",
+              page: const SecondPage(),
+            ),
+            activePath: SvgPicture.asset("assets/bottom_bar/home2_active.svg"),
+            appBar: Container(
+              width: 200,
+              height: 50,
+              color: Colors.green,
+            ),
+            appBarHeight: 130,
+            appBarAnimated: true,
+            transactionType: FlutlyTransactionType.FADE,
+            children: [
+              FlutlyBottomBarItem(
+                page: FlutlyPage(
+                  name: "Second2",
+                  path: "main",
+                  page: const MainPage(),
                 ),
-              ]),
+                activePath:
+                    SvgPicture.asset("assets/bottom_bar/home2_active.svg"),
+                appBar: Container(
+                  width: 200,
+                  height: 50,
+                  color: Colors.yellow,
+                ),
+                appBarHeight: 80,
+              ),
+            ],
+          ),
           FlutlyBottomBarItem(
             page: FlutlyPage(
               name: "Four",
@@ -122,7 +124,9 @@ class MyApp extends StatelessWidget {
               width: 200,
               height: 50,
             ),
+            appBarAnimated: false,
             appBarHeight: 0,
+            transactionType: FlutlyTransactionType.FADE,
           ),
           FlutlyBottomBarItem(
             page: FlutlyPage(
@@ -137,6 +141,8 @@ class MyApp extends StatelessWidget {
               color: Colors.orange,
             ),
             appBarHeight: 300,
+            appBarAnimated: true,
+            transactionType: FlutlyTransactionType.FADE,
           ),
         ],
       ),

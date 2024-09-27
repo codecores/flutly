@@ -6,9 +6,6 @@ import 'package:flutter/material.dart';
 class FlutlyAppBar {
   Color? color;
   double? blur;
-  bool? animated;
 
-  FlutlyAppBar({this.color, this.blur, this.animated});
-
-  bool isAnimated() => animated ?? false;
+  FlutlyAppBar({this.color, this.blur});
 }

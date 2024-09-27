@@ -174,7 +174,7 @@ class _FlutlyAppState extends State<FlutlyApp> {
                               .appBarHeight ??
                           0,
                     );
-                    return FlutlyTransaction.getTransaction(route.transactionType!,
+                    return FlutlyTransaction.getTransaction(route.getTransactionType(),
                     state.pageKey, route.page.page);
                   },
                 ),
@@ -194,7 +194,7 @@ class _FlutlyAppState extends State<FlutlyApp> {
                           .appBarHeight ??
                       0,
                 );
-                return FlutlyTransaction.getTransaction(route.transactionType!,
+                return FlutlyTransaction.getTransaction(route.getTransactionType(),
                     state.pageKey, route.page.page);
               },
               routes: childNavigationRoutes,
@@ -216,13 +216,12 @@ class _FlutlyAppState extends State<FlutlyApp> {
                       FlutlyBottomBarItem? item = widget.bottomBar!
                           .getItemWithPath(controller.getCurrentRoute());
 
-                      double appBarHeight = 80;
-                      if (item != null) appBarHeight = item.appBarHeight ?? 80;
-
                       bool appBarAnimated = false;
+                      double appBarHeight = 80;
 
-                      if (widget.appBar != null) {
-                        appBarAnimated = widget.appBar!.isAnimated();
+                      if (item != null) {
+                        appBarHeight = item.appBarHeight ?? 80;
+                        appBarAnimated = item.isAnimatedAppBar();
                       }
 
                       appBarHeight += MediaQuery.of(context).padding.top;
@@ -231,17 +230,12 @@ class _FlutlyAppState extends State<FlutlyApp> {
                         children: [
                           Column(
                             children: [
-                              appBarAnimated
-                                  ? AnimatedContainer(
+                                  AnimatedContainer(
                                       width: double.infinity,
                                       height: appBarHeight,
                                       duration:
-                                          const Duration(milliseconds: 300),
+                                           Duration(milliseconds: appBarAnimated ? 300 : 0),
                                       curve: Curves.easeInOutCubic,
-                                    )
-                                  : SizedBox(
-                                      width: double.infinity,
-                                      height: appBarHeight,
                                     ),
                               Flexible(child: child),
                             ],

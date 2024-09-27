@@ -21,24 +21,18 @@ class FlutlyAbSection extends StatelessWidget {
       return const SizedBox();
     }
 
-    if (appBar!.isAnimated()) {
-      return AnimatedContainer(
+    bool isAnimated = item!.isAnimatedAppBar();
+
+    return AnimatedContainer(
         width: double.infinity,
         height: appBarHeight,
-        duration: const Duration(milliseconds: 300),
+        duration: Duration(milliseconds: isAnimated ? 300 : 0),
         curve: Curves.easeInOutCubic,
         alignment: Alignment.center,
         color: appBar!.color ?? Theme.of(context).scaffoldBackgroundColor,
         child: SafeArea(child: item!.appBar!),
       );
-    }
 
-    return Container(
-        width: double.infinity,
-        height: appBarHeight,
-        alignment: Alignment.center,
-        color: appBar!.color ?? Theme.of(context).scaffoldBackgroundColor,
-        child: SafeArea(child: item!.appBar!),
-      );
+   
   }
 }

@@ -1,6 +1,6 @@
 name: flutly
 description: "Flutly is a modern and customizable Flutter library that offers a collection of flexible and user-friendly widgets and tools."
-version: 1.0.0+20
+version: 1.0.0+22
 homepage: https://github.com/codecores/flutly
 
 environment:
