@@ -220,11 +220,13 @@ class _FlutlyAppState extends State<FlutlyApp> {
                       double appBarHeight = 80;
 
                       if (item != null) {
-                        appBarHeight = item.appBarHeight ?? 80;
+                        appBarHeight = item.appBarHeight ?? 0.0;
                         appBarAnimated = item.isAnimatedAppBar();
                       }
 
-                      appBarHeight += MediaQuery.of(context).padding.top;
+                      if(appBarHeight != 0.0){
+                        appBarHeight += MediaQuery.of(context).padding.top;
+                      }
 
                       return Stack(
                         children: [

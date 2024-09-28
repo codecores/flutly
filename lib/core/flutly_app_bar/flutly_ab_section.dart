@@ -30,7 +30,7 @@ class FlutlyAbSection extends StatelessWidget {
       curve: Curves.easeInOutCubic,
       alignment: Alignment.center,
       color: appBar!.color ?? Theme.of(context).scaffoldBackgroundColor,
-      padding: (appBarHeight == 0.0) ? null : EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      padding: appBarHeight == 0.0 ? null : EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       child: item!.appBar!,
     );
   }

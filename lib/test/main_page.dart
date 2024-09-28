@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/apperiances/flutly_dialog_apperiances.dart';
+import 'package:flutly/apperiances/flutly_profile_image_apperiances.dart';
 import 'package:flutly/core/flutly_tab_bar/flutly_tab_controller.dart';
 import 'package:flutly/enums/button_type.dart';
 import 'package:flutly/enums/dialog_type.dart';
@@ -8,6 +9,7 @@ import 'package:flutly/external/modal_bottom_sheet/src/utils/modal_scroll_contro
 import 'package:flutly/flutly.dart';
 import 'package:flutly/test/sheets/order_sheet.dart';
 import 'package:flutly/widgets/flutly_button.dart';
+import 'package:flutly/widgets/flutly_profile_image.dart';
 import 'package:flutly/widgets/flutly_text.dart';
 import 'package:flutly/widgets/flutly_textfield.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class MainPage extends StatelessWidget {
         child: TabBarView(
           controller:
               Flutly.getFlutlyVariable(tag: "main_tab_controller").getValue(),
-              physics: NeverScrollableScrollPhysics(),
+          physics: NeverScrollableScrollPhysics(),
           children: [
             Container(
               width: double.infinity,
@@ -60,16 +62,21 @@ class MainPage extends StatelessWidget {
                         onFocus: () {
                           print("KLAVYE : FOCUS OLDU");
                         },
-                        onUnfocus: (){
+                        onUnfocus: () {
                           print("KLAVYE : FOCUS DIŞI OLDU");
                         },
                       ),
                     ),
                     const SizedBox(height: 10),
+                    FlutlyProfileImage(
+                      path: "assets/bottom_bar/profile_photo.png",
+                      width: 80,
+                      height: 80,
+                      apperiances: FlutlyProfileImageApperiances(borderWeight: 5, borderColor: Colors.red),
+                    ),
                     FlutlyButton(
                       buttonType: ButtonType.BOUNCING,
-                      onTap: () {
-                      },
+                      onTap: () {},
                       child: Container(
                         width: double.infinity,
                         height: 200,
