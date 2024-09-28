@@ -3,6 +3,7 @@ import 'package:flutly/core/flutly_theme.dart';
 import 'package:flutly/enums/button_type.dart';
 import 'package:flutly/widgets/flutly_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:get/get.dart';
 
@@ -41,9 +42,18 @@ class FlutlyButton extends StatelessWidget {
       return isExpanded
           ? Flexible(
               child: Bounceable(
-                  onTap: () => onTap(), child: child ?? generateButton()),
+                  onTap: () {
+                    onTap();
+                    HapticFeedback.selectionClick();
+                  },
+                  child: child ?? generateButton()),
             )
-          : Bounceable(onTap: () => onTap(), child: child ?? generateButton());
+          : Bounceable(
+              onTap: () {
+                onTap();
+                HapticFeedback.selectionClick();
+              },
+              child: child ?? generateButton());
     }
 
     return GestureDetector(

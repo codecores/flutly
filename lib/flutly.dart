@@ -3,6 +3,7 @@ library flutly;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/external/fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vibration/vibration.dart';
@@ -153,6 +154,8 @@ class Flutly {
         backgroundColor: Get.find<FlutlyTheme>().getColor("buttonColor"),
         borderRadius: 8,
         textFC: "small textColor normal");
+
+    HapticFeedback.mediumImpact();
 
     var fToast = FToast();
     fToast.init(Get.find<FlutlyConfig>().context!);

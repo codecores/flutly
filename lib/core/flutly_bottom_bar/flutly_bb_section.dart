@@ -1,6 +1,8 @@
 import 'package:blur/blur.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_config.dart';
+import 'package:flutly/enums/button_type.dart';
+import 'package:flutly/widgets/flutly_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -101,7 +103,8 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
                                         i < widget.bottomBar.items.length;
                                         i++)
                                       Flexible(
-                                        child: GestureDetector(
+                                        child: FlutlyButton(
+                                          buttonType: ButtonType.BOUNCING,
                                           onTap: () {
                                             if (widget.bottomBar.items[i].page
                                                     .path !=
