@@ -218,11 +218,17 @@ class Flutly {
     );
   }
 
-  void vibrate() async {
+  static void vibrate({
+    int duration = 500,
+    List<int> pattern = const [],
+    int repeat = -1,
+    List<int> intensities = const [],
+    int amplitude = -1,
+  }) async {
     bool? hasVibration = await Vibration.hasVibrator();
     if (hasVibration == null) return;
     if (!hasVibration) return;
 
-    Vibration.vibrate();
+    Vibration.vibrate(amplitude: amplitude, duration: duration, intensities: intensities, pattern: pattern, repeat: repeat);
   }
 }

@@ -26,6 +26,7 @@ class MainPage extends StatelessWidget {
         child: TabBarView(
           controller:
               Flutly.getFlutlyVariable(tag: "main_tab_controller").getValue(),
+              physics: NeverScrollableScrollPhysics(),
           children: [
             Container(
               width: double.infinity,

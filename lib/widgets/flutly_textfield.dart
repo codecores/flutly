@@ -21,6 +21,8 @@ class FlutlyTextfield extends StatefulWidget {
   Color? cursorColor;
   bool? autofocus;
   bool? expanded;
+  TextEditingController? controller;
+  FocusNode? focusNode;
 
   FlutlyTextfield({
     this.onTextfieldEmpty,
@@ -32,6 +34,8 @@ class FlutlyTextfield extends StatefulWidget {
     this.expanded,
     this.onFocus,
     this.onUnfocus,
+    this.controller,
+    this.focusNode,
     this.leadingWidget = const SizedBox.shrink(),
     this.textFieldStyle = const TextStyle(fontSize: 13),
     this.textFieldDecoration = const BoxDecoration(color: Color(0xffE8E8E8)),
@@ -54,13 +58,14 @@ class FlutlyTextfield extends StatefulWidget {
 class _FlutlyTextfieldState extends State<FlutlyTextfield> {
   late StreamController<bool> _btnClearController;
   late TextEditingController _inputController;
-  FocusNode _focus = FocusNode();
+  late FocusNode _focus;
 
   @override
   void initState() {
     super.initState();
     _btnClearController = StreamController<bool>();
-    _inputController = TextEditingController();
+    _inputController = widget.controller ?? TextEditingController();
+    _focus = widget.focusNode ?? FocusNode();
     _focus.addListener(_onFocusChange);
   }
 

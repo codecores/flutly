@@ -80,7 +80,7 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
                               child: const SizedBox.expand(),
                             )
                           : const SizedBox(),
-                      Container(
+                      SizedBox(
                         width: double.infinity,
                         height: widget.bottomBar.getHeight(),
                         child: Column(
@@ -92,39 +92,46 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
                                   )
                                 : const SizedBox(),
                             Flexible(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  for (int i = 0;
-                                      i < widget.bottomBar.items.length;
-                                      i++)
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (widget
-                                                .bottomBar.items[i].page.path !=
-                                            Get.find<FlutlyConfig>()
-                                                .getCurrentRoute()) {
-                                          context.go(widget
-                                              .bottomBar.items[i].page.path);
-                                        }
-                                      },
-                                      child: SizedBox(
-                                        width: 50,
-                                        height: double.infinity,
-                                        child: Center(
-                                          child: SizedBox(
-                                            width:
-                                                widget.bottomBar.itemSize ?? 30,
-                                            height:
-                                                widget.bottomBar.itemSize ?? 30,
-                                            child: widget
-                                                .bottomBar.items[i].activePath,
+                              child: SizedBox.expand(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    for (int i = 0;
+                                        i < widget.bottomBar.items.length;
+                                        i++)
+                                      Flexible(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            if (widget.bottomBar.items[i].page
+                                                    .path !=
+                                                Get.find<FlutlyConfig>()
+                                                    .getCurrentRoute()) {
+                                              context.go(widget.bottomBar
+                                                  .items[i].page.path);
+                                            }
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            color: Colors.transparent,
+                                            child: Center(
+                                              child: SizedBox(
+                                                width:
+                                                    widget.bottomBar.itemSize ??
+                                                        30,
+                                                height:
+                                                    widget.bottomBar.itemSize ??
+                                                        30,
+                                                child: widget.bottomBar.items[i]
+                                                    .activePath,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],

@@ -25,6 +25,7 @@ class MainAppBar extends StatelessWidget {
                 borderRadius: const BorderRadius.all(Radius.circular(10))),
             child: TabBar(
               controller: tabController,
+              physics: NeverScrollableScrollPhysics(),
               onTap: (value) {
                 controller.update();
               },
