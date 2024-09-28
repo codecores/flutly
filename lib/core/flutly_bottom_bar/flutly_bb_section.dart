@@ -31,10 +31,9 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
       begin: Offset.zero,
       end: const Offset(0, 1),
     ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOutCubic,
-      reverseCurve: Curves.easeInCubic
-    ));
+        parent: _controller,
+        curve: Curves.easeOutCubic,
+        reverseCurve: Curves.easeInCubic));
   }
 
   @override
@@ -47,16 +46,17 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
   Widget build(BuildContext context) {
     return GetBuilder<FlutlyConfig>(
       builder: (controller) {
-        if(controller.bottomBarHidden){
+        if (controller.bottomBarHidden) {
           _controller.forward();
-        }else{
+        } else {
           _controller.reverse();
         }
         return SlideTransition(
           position: _animation,
           child: SizedBox(
             width: double.infinity,
-            height: widget.bottomBar.getBarHeight(),
+            height: widget.bottomBar.getBarHeight() +
+                MediaQuery.of(context).padding.bottom,
             child: Column(
               children: [
                 SizedBox(
@@ -66,7 +66,8 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
                 ),
                 Container(
                   width: double.infinity,
-                  height: widget.bottomBar.getHeight(),
+                  height: widget.bottomBar.getHeight() +
+                      MediaQuery.of(context).padding.bottom,
                   color: widget.bottomBar.blur == null
                       ? widget.bottomBar.getColor(context)
                       : null,
@@ -79,7 +80,9 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
                               child: const SizedBox.expand(),
                             )
                           : const SizedBox(),
-                      SafeArea(
+                      Container(
+                        width: double.infinity,
+                        height: widget.bottomBar.getHeight(),
                         child: Column(
                           children: [
                             widget.bottomBar.separator != null

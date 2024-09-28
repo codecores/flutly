@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
       ],
       appBar: FlutlyAppBar(),
       bottomBar: FlutlyBottomBar(
-        height: 80,
+        height: 70,
         itemSize: 30,
         separator: Container(
           height: 0.5,
