@@ -127,7 +127,7 @@ class _FlutlyBbSectionState extends State<FlutlyBbSection>
                                                     widget.bottomBar.itemSize ??
                                                         30,
                                                 child: widget.bottomBar.items[i]
-                                                    .activePath,
+                                                    .getActivePath(),
                                               ),
                                             ),
                                           ),

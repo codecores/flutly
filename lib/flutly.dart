@@ -2,6 +2,7 @@ library flutly;
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/external/fluttertoast/fluttertoast.dart';
+import 'package:flutly/widgets/flutly_blured_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -217,6 +218,20 @@ class Flutly {
           position: tween,
           child: child,
         );
+      },
+    );
+  }
+
+  static void showBluredDialog(BuildContext context,
+      {required Widget child}) {
+    showGeneralDialog(
+      context: context,
+      barrierLabel: "Barrier",
+      barrierDismissible: true,
+      barrierColor: Colors.transparent,
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (_, __, ___) {
+        return FlutlyBluredDialog(child: child);
       },
     );
   }

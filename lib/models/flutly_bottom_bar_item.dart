@@ -3,29 +3,26 @@ import 'package:flutter/material.dart';
 
 class FlutlyBottomBarItem {
   FlutlyPage page;
-  Widget activePath;
+  Widget? activePath;
   Widget? deactivePath;
-  Widget? appBar;
-  double? appBarHeight;
-  bool? appBarAnimated;
 
-  FlutlyTransactionType? transactionType = FlutlyTransactionType.DEFAULT;
+  FlutlyTransactionType? transactionType;
   List<FlutlyBottomBarItem>? children;
 
   FlutlyBottomBarItem(
       {required this.page,
-      required this.activePath,
-      this.appBar,
-      this.appBarHeight,
-      this.appBarAnimated,
+      this.activePath,
       this.deactivePath,
       this.children,
       this.transactionType,}) {
     deactivePath ??= activePath;
   }
 
-  bool isAnimatedAppBar() => appBarAnimated ?? false;
-  FlutlyTransactionType getTransactionType() => transactionType ?? FlutlyTransactionType.DEFAULT;
+  Widget getActivePath() => activePath ?? const SizedBox();
+
+  Widget getDeactivePath() => deactivePath ?? const SizedBox();
+
+  FlutlyTransactionType getTransactionType() => transactionType ?? FlutlyTransactionType.FADE;
 
 }
 

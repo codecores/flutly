@@ -28,7 +28,7 @@ class MainPage extends StatelessWidget {
         child: TabBarView(
           controller:
               Flutly.getFlutlyVariable(tag: "main_tab_controller").getValue(),
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           children: [
             Container(
               width: double.infinity,
@@ -72,11 +72,39 @@ class MainPage extends StatelessWidget {
                       path: "assets/bottom_bar/profile_photo.png",
                       width: 80,
                       height: 80,
-                      apperiances: FlutlyProfileImageApperiances(borderWeight: 5, borderColor: Colors.red),
+                      apperiances: FlutlyProfileImageApperiances(
+                          borderWeight: 5, borderColor: Colors.red),
                     ),
                     FlutlyButton(
                       buttonType: ButtonType.BOUNCING,
-                      onTap: () {},
+                      onTap: () {
+                        // Flutly.showDialog(
+                        //   context,
+                        //   apperiances: FlutlyDialogApperiances(
+                        //     dialogType: DialogType.SUCCESSFUL,
+                        //     title: FlutlyText("Title", font: ""),
+                        //     description: FlutlyText("Description", font: ""),
+                        //     left: FlutlyDialogActionApperiances(
+                        //       buttonTitle: FlutlyText("Evet", font: ""),
+                        //       buttonTap: () {},
+                        //       buttonColor: Colors.red,
+                        //     ),
+                        //     right: FlutlyDialogActionApperiances(
+                        //       buttonTitle: FlutlyText("Evet", font: ""),
+                        //       buttonTap: () {},
+                        //       buttonColor: Colors.red,
+                        //     ),
+                        //   ),
+                        // );
+
+                        Flutly.showBluredDialog(
+                          context,
+                          child: Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                        );
+                      },
                       child: Container(
                         width: double.infinity,
                         height: 200,

@@ -1,4 +1,5 @@
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
+import 'package:flutly/core/flutly_app_bar/flutly_app_bar_item.dart';
 import 'package:flutly/models/flutly_bottom_bar_item.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,13 @@ class FlutlyAbSection extends StatelessWidget {
       return const SizedBox();
     }
 
-    bool isAnimated = item!.isAnimatedAppBar();
+    FlutlyAppBarItem? appBarItem = appBar!.getBar(item!.page.name);
+
+    if(appBarItem == null)  {
+      return const SizedBox();
+    }
+
+    bool isAnimated = appBarItem.isAnimatedAppBar();
 
     return AnimatedContainer(
       width: double.infinity,
@@ -31,7 +38,7 @@ class FlutlyAbSection extends StatelessWidget {
       alignment: Alignment.center,
       color: appBar!.color ?? Theme.of(context).scaffoldBackgroundColor,
       padding: appBarHeight == 0.0 ? null : EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      child: item!.appBar!,
+      child: appBarItem.appBar,
     );
   }
 }

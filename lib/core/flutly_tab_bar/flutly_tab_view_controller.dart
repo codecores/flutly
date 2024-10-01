@@ -10,6 +10,6 @@ class FlutlyTabViewController {
     this.initalIndex,
     this.animationDuration,
   }) {
-    if (this.initalIndex == null) initalIndex = 0;
+    initalIndex ??= 0;
   }
 }

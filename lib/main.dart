@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/core/flutly_app.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
+import 'package:flutly/core/flutly_app_bar/flutly_app_bar_item.dart';
 import 'package:flutly/core/flutly_tab_bar/flutly_tab_view_controller.dart';
 import 'package:flutly/core/flutly_bottom_bar/flutly_bottom_bar.dart';
 import 'package:flutly/core/flutly_page.dart';
@@ -51,7 +52,51 @@ class MyApp extends StatelessWidget {
           length: 2,
         ),
       ],
-      appBar: FlutlyAppBar(),
+      appBar: FlutlyAppBar(
+        bars: [
+          FlutlyAppBarItem(
+            name: "Home",
+            appBar: const MainAppBar(),
+            appBarHeight: 70,
+            appBarAnimated: true,
+          ),
+          FlutlyAppBarItem(
+            name: "Second",
+            appBar: Container(
+              width: 200,
+              height: 50,
+              color: Colors.green,
+            ),
+            appBarHeight: 130,
+            appBarAnimated: true,
+          ),
+          FlutlyAppBarItem(
+            name: "Second2",
+            appBar: Container(
+              width: 200,
+              height: 50,
+              color: Colors.yellow,
+            ),
+            appBarHeight: 80,
+          ),
+          FlutlyAppBarItem(
+            name: "Four",
+            appBar: const SizedBox(width: 200, height: 50),
+            appBarAnimated: false,
+            appBarHeight: 0,
+          ),
+          FlutlyAppBarItem(
+            name: "Five",
+            appBar: Container(
+              width: 200,
+              height: 50,
+              color: Colors.orange,
+            ),
+            appBarHeight: 300,
+            appBarAnimated: true,
+          ),
+        ],
+      ),
       bottomBar: FlutlyBottomBar(
         height: 70,
         itemSize: 30,
@@ -75,10 +120,6 @@ class MyApp extends StatelessWidget {
               page: const MainPage(),
             ),
             activePath: SvgPicture.asset("assets/bottom_bar/home_active.svg"),
-            appBar: MainAppBar(),
-            appBarHeight: 70,
-            appBarAnimated: true,
-            transactionType: FlutlyTransactionType.FADE,
           ),
           FlutlyBottomBarItem(
             page: FlutlyPage(
@@ -87,14 +128,6 @@ class MyApp extends StatelessWidget {
               page: const SecondPage(),
             ),
             activePath: SvgPicture.asset("assets/bottom_bar/home2_active.svg"),
-            appBar: Container(
-              width: 200,
-              height: 50,
-              color: Colors.green,
-            ),
-            appBarHeight: 130,
-            appBarAnimated: true,
-            transactionType: FlutlyTransactionType.FADE,
             children: [
               FlutlyBottomBarItem(
                 page: FlutlyPage(
@@ -102,14 +135,7 @@ class MyApp extends StatelessWidget {
                   path: "main",
                   page: const MainPage(),
                 ),
-                activePath:
-                    SvgPicture.asset("assets/bottom_bar/home2_active.svg"),
-                appBar: Container(
-                  width: 200,
-                  height: 50,
-                  color: Colors.yellow,
-                ),
-                appBarHeight: 80,
+                transactionType: FlutlyTransactionType.DEFAULT,
               ),
             ],
           ),
@@ -120,13 +146,6 @@ class MyApp extends StatelessWidget {
               page: const FourPage(),
             ),
             activePath: SvgPicture.asset("assets/bottom_bar/home3_active.svg"),
-            appBar: Container(
-              width: 200,
-              height: 50,
-            ),
-            appBarAnimated: false,
-            appBarHeight: 0,
-            transactionType: FlutlyTransactionType.FADE,
           ),
           FlutlyBottomBarItem(
             page: FlutlyPage(
@@ -135,14 +154,6 @@ class MyApp extends StatelessWidget {
               page: const FivePage(),
             ),
             activePath: SvgPicture.asset("assets/bottom_bar/home4_active.svg"),
-            appBar: Container(
-              width: 200,
-              height: 50,
-              color: Colors.orange,
-            ),
-            appBarHeight: 300,
-            appBarAnimated: true,
-            transactionType: FlutlyTransactionType.FADE,
           ),
         ],
       ),

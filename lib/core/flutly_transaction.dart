@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class FlutlyTransaction {
-
-  static Page<dynamic> getTransaction(FlutlyTransactionType type, LocalKey key, Widget widget){
-    if(type == FlutlyTransactionType.DEFAULT){
+  static Page<dynamic> getTransaction(
+      FlutlyTransactionType type, LocalKey key, Widget widget) {
+    if (type == FlutlyTransactionType.DEFAULT) {
       return getDefaultTransaction(key, widget);
     }
 
@@ -15,7 +15,18 @@ class FlutlyTransaction {
   static Page<dynamic> getDefaultTransaction(LocalKey key, Widget widget) {
     return CustomTransitionPage<void>(
       key: key,
-      child: widget,
+      child: Builder(
+        // BuildContext'i almak için Builder kullanıyoruz
+        builder: (context) => GestureDetector(
+          onHorizontalDragEnd: (DragEndDetails details) {
+            if (details.localPosition.dx > 200) {
+              return;
+            }
+            Navigator.of(context).pop();
+          },
+          child: widget,
+        ),
+      ),
       barrierDismissible: false,
       barrierColor: Colors.black45,
       opaque: false,
@@ -37,7 +48,7 @@ class FlutlyTransaction {
           CurvedAnimation(
             parent: animation,
             curve: Curves.easeOutCirc,
-            reverseCurve: Curves.easeIn
+            reverseCurve: Curves.easeIn,
           ),
         );
 

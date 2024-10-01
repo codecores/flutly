@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_ab_section.dart';
 import 'package:flutly/core/flutly_app_bar/flutly_app_bar.dart';
+import 'package:flutly/core/flutly_app_bar/flutly_app_bar_item.dart';
 import 'package:flutly/core/flutly_tab_bar/flutly_multi_tab_controller.dart';
 import 'package:flutly/core/flutly_tab_bar/flutly_tab_controller.dart';
 import 'package:flutly/core/flutly_tab_bar/flutly_tab_view_controller.dart';
@@ -134,15 +135,31 @@ class _FlutlyAppState extends State<FlutlyApp> {
           path: route.path,
           onExit: route.onExit,
           pageBuilder: (BuildContext context, GoRouterState state) {
-            Get.find<FlutlyConfig>().setCurrentRoute(
-              state.fullPath!,
-              widget.bottomBar!
-                      .getItemWithPath(state.fullPath!)!
-                      .appBarHeight ??
-                  0,
-            );
+            FlutlyBottomBarItem? bottomBarItem =
+                widget.bottomBar!.getItemWithPath(state.fullPath!);
+
+            Widget? page;
+
+            if (bottomBarItem != null) {
+              double appBarHeight = 0;
+              if (widget.appBar != null) {
+                FlutlyAppBarItem? appBarItem =
+                    widget.appBar!.getBar(bottomBarItem.page.name);
+
+                if (appBarItem != null) {
+                  appBarHeight = appBarItem.appBarHeight ?? 0;
+                }
+              }
+              Get.find<FlutlyConfig>().setCurrentRoute(
+                state.fullPath!,
+                appBarHeight,
+              );
+
+              page = bottomBarItem.page.page;
+            }
+
             return FlutlyTransaction.getDefaultTransaction(
-                state.pageKey, route.page);
+                state.pageKey, page ?? const SizedBox());
           },
         ),
       );
@@ -167,15 +184,34 @@ class _FlutlyAppState extends State<FlutlyApp> {
                   path: route.page.path,
                   onExit: route.page.onExit,
                   pageBuilder: (BuildContext context, GoRouterState state) {
-                    Get.find<FlutlyConfig>().setCurrentRoute(
-                      state.fullPath!,
-                      widget.bottomBar!
-                              .getItemWithPath(state.fullPath!)!
-                              .appBarHeight ??
-                          0,
+                    FlutlyBottomBarItem? bottomBarItem =
+                        widget.bottomBar!.getItemWithPath(state.fullPath!);
+
+                    Widget? page;
+
+                    if (bottomBarItem != null) {
+                      double appBarHeight = 0;
+                      if (widget.appBar != null) {
+                        FlutlyAppBarItem? appBarItem =
+                            widget.appBar!.getBar(bottomBarItem.page.name);
+
+                        if (appBarItem != null) {
+                          appBarHeight = appBarItem.appBarHeight ?? 0;
+                        }
+                      }
+                      Get.find<FlutlyConfig>().setCurrentRoute(
+                        state.fullPath!,
+                        appBarHeight,
+                      );
+
+                      page = bottomBarItem.page.page;
+                    }
+
+                    return FlutlyTransaction.getTransaction(
+                      route.getTransactionType(),
+                      state.pageKey,
+                      page ?? const SizedBox(),
                     );
-                    return FlutlyTransaction.getTransaction(route.getTransactionType(),
-                    state.pageKey, route.page.page);
                   },
                 ),
               );
@@ -187,15 +223,34 @@ class _FlutlyAppState extends State<FlutlyApp> {
               path: route.page.path,
               onExit: route.page.onExit,
               pageBuilder: (BuildContext context, GoRouterState state) {
-                Get.find<FlutlyConfig>().setCurrentRoute(
-                  state.fullPath!,
-                  widget.bottomBar!
-                          .getItemWithPath(state.fullPath!)!
-                          .appBarHeight ??
-                      0,
+                FlutlyBottomBarItem? bottomBarItem =
+                    widget.bottomBar!.getItemWithPath(state.fullPath!);
+
+                Widget? page;
+
+                if (bottomBarItem != null) {
+                  double appBarHeight = 0;
+                  if (widget.appBar != null) {
+                    FlutlyAppBarItem? appBarItem =
+                        widget.appBar!.getBar(bottomBarItem.page.name);
+
+                    if (appBarItem != null) {
+                      appBarHeight = appBarItem.appBarHeight ?? 0;
+                    }
+                  }
+                  Get.find<FlutlyConfig>().setCurrentRoute(
+                    state.fullPath!,
+                    appBarHeight,
+                  );
+
+                  page = bottomBarItem.page.page;
+                }
+
+                return FlutlyTransaction.getTransaction(
+                  route.getTransactionType(),
+                  state.pageKey,
+                  page ?? const SizedBox(),
                 );
-                return FlutlyTransaction.getTransaction(route.getTransactionType(),
-                    state.pageKey, route.page.page);
               },
               routes: childNavigationRoutes,
             ),
@@ -219,12 +274,16 @@ class _FlutlyAppState extends State<FlutlyApp> {
                       bool appBarAnimated = false;
                       double appBarHeight = 80;
 
-                      if (item != null) {
-                        appBarHeight = item.appBarHeight ?? 0.0;
-                        appBarAnimated = item.isAnimatedAppBar();
+                      if (item != null && widget.appBar != null) {
+                        FlutlyAppBarItem? appBarItem =
+                            widget.appBar!.getBar(item.page.name);
+                        if (appBarItem != null) {
+                          appBarHeight = appBarItem.appBarHeight ?? 0.0;
+                          appBarAnimated = appBarItem.isAnimatedAppBar();
+                        }
                       }
 
-                      if(appBarHeight != 0.0){
+                      if (appBarHeight != 0.0) {
                         appBarHeight += MediaQuery.of(context).padding.top;
                       }
 
@@ -232,13 +291,13 @@ class _FlutlyAppState extends State<FlutlyApp> {
                         children: [
                           Column(
                             children: [
-                                  AnimatedContainer(
-                                      width: double.infinity,
-                                      height: appBarHeight,
-                                      duration:
-                                           Duration(milliseconds: appBarAnimated ? 300 : 0),
-                                      curve: Curves.easeInOutCubic,
-                                    ),
+                              AnimatedContainer(
+                                width: double.infinity,
+                                height: appBarHeight,
+                                duration: Duration(
+                                    milliseconds: appBarAnimated ? 300 : 0),
+                                curve: Curves.easeInOutCubic,
+                              ),
                               Flexible(child: child),
                             ],
                           ),
