@@ -1,15 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutly/apperiances/flutly_dialog_apperiances.dart';
 import 'package:flutly/apperiances/flutly_profile_image_apperiances.dart';
-import 'package:flutly/core/flutly_tab_bar/flutly_tab_controller.dart';
 import 'package:flutly/enums/button_type.dart';
-import 'package:flutly/enums/dialog_type.dart';
-import 'package:flutly/external/modal_bottom_sheet/src/bottom_sheets/material_bottom_sheet.dart';
-import 'package:flutly/external/modal_bottom_sheet/src/utils/modal_scroll_controller.dart';
 import 'package:flutly/flutly.dart';
-import 'package:flutly/test/sheets/order_sheet.dart';
 import 'package:flutly/widgets/flutly_button.dart';
 import 'package:flutly/widgets/flutly_profile_image.dart';
+import 'package:flutly/widgets/flutly_rich_text.dart';
 import 'package:flutly/widgets/flutly_text.dart';
 import 'package:flutly/widgets/flutly_textfield.dart';
 import 'package:flutter/material.dart';
@@ -116,30 +110,12 @@ class MainPage extends StatelessWidget {
                             horizontal: 10, vertical: 20),
                       ),
                     ),
-                    FlutlyButton(
-                      buttonType: ButtonType.BOUNCING,
-                      onTap: () {
-                        showMaterialModalBottomSheet(
-                          context: context,
-                          builder: (context) => SingleChildScrollView(
-                            controller: ModalScrollController.of(context),
-                            child: const OrderSheet(),
-                          ),
-                          blur: 10,
-                          blurColor: const Color.fromRGBO(255, 255, 255, 0.10),
-                          useRootNavigator: true,
-                        );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 200,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
-                        ),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
-                      ),
+                    FlutlyRichText(
+                      font: " large ",
+                      texts: [
+                        FlutlyText("Selamlar", font: " textColor w700 "),
+                        FlutlyText("Naber", font: " subTextColor "),
+                      ],
                     ),
                     Container(
                       width: double.infinity,
@@ -171,6 +147,68 @@ class MainPage extends StatelessWidget {
               color: Colors.red,
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ListItems extends StatelessWidget {
+  const ListItems({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: ListView(
+        padding: const EdgeInsets.all(8),
+        children: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context)
+                ..pop()
+                ..push(
+                  MaterialPageRoute<SecondRoute>(
+                    builder: (context) => SecondRoute(),
+                  ),
+                );
+            },
+            child: Container(
+              height: 50,
+              color: Colors.amber[100],
+              child: const Center(child: Text('Entry A')),
+            ),
+          ),
+          const Divider(),
+          Container(
+            height: 50,
+            color: Colors.amber[200],
+            child: const Center(child: Text('Entry B')),
+          ),
+          const Divider(),
+          Container(
+            height: 50,
+            color: Colors.amber[300],
+            child: const Center(child: Text('Entry C')),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Route'),
+        automaticallyImplyLeading: false,
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('Go back!'),
         ),
       ),
     );
