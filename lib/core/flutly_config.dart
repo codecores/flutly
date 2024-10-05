@@ -3,6 +3,7 @@ import 'package:flutly/models/flutly_variable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:yaml/yaml.dart';
 
 class FlutlyConfig extends GetxController {
@@ -16,6 +17,8 @@ class FlutlyConfig extends GetxController {
 
   bool bottomBarHidden = false;
   bool keyboardShowing = false;
+
+  RxBool onShimmer = RxBool(true);
 
   List<FlutlyTabViewController> tabBars = List.empty(growable: true);
 
@@ -50,8 +53,14 @@ class FlutlyConfig extends GetxController {
   String getCurrentRoute() => currentRoute.value;
   double getCurrentAppBarHeight() => currentAppBarHeight.value;
 
+  void setOnShimmer(bool onShimmer){
+    this.onShimmer = RxBool(onShimmer);
+    update();
+  }
+
   void setCurrentRoute(String route, double appBarHeight) async{
     await Future.delayed(const Duration(milliseconds: 10));
+    print("GÜNCELLENDİ : " + route);
     currentRoute = RxString(route);
     currentAppBarHeight = RxDouble(appBarHeight);
     update();

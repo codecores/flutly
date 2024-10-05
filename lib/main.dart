@@ -33,13 +33,13 @@ class MyApp extends StatelessWidget {
 
   void test(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 3));
-    Flutly.changeTheme(ThemeType.light);
+    Flutly.getFlutlyConfig().setOnShimmer(false);
   }
 
   @override
   Widget build(BuildContext context) {
     Flutly.screenConfiguration(context);
-    //test(context);
+    test(context);
 
     return FlutlyApp(
       title: 'Flutter Demo',
@@ -106,12 +106,6 @@ class MyApp extends StatelessWidget {
         ),
         blur: 10,
         color: const Color.fromRGBO(14, 18, 27, 0.24),
-        leadingHeight: 0,
-        leading: Container(
-          width: double.infinity,
-          height: 200,
-          color: Colors.red,
-        ),
         items: [
           FlutlyBottomBarItem(
             page: FlutlyPage(

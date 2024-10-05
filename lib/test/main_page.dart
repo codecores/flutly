@@ -1,6 +1,8 @@
 import 'package:flutly/apperiances/flutly_profile_image_apperiances.dart';
 import 'package:flutly/enums/button_type.dart';
 import 'package:flutly/flutly.dart';
+import 'package:flutly/test/widgets/SetupItem.dart';
+import 'package:flutly/test/widgets/setup_item_container.dart';
 import 'package:flutly/widgets/flutly_button.dart';
 import 'package:flutly/widgets/flutly_profile_image.dart';
 import 'package:flutly/widgets/flutly_rich_text.dart';
@@ -62,54 +64,19 @@ class MainPage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    FlutlyProfileImage(
-                      path: "assets/bottom_bar/profile_photo.png",
-                      width: 80,
-                      height: 80,
-                      apperiances: FlutlyProfileImageApperiances(
-                          borderWeight: 5, borderColor: Colors.red),
-                    ),
-                    FlutlyButton(
-                      buttonType: ButtonType.BOUNCING,
-                      onTap: () {
-                        // Flutly.showDialog(
-                        //   context,
-                        //   apperiances: FlutlyDialogApperiances(
-                        //     dialogType: DialogType.SUCCESSFUL,
-                        //     title: FlutlyText("Title", font: ""),
-                        //     description: FlutlyText("Description", font: ""),
-                        //     left: FlutlyDialogActionApperiances(
-                        //       buttonTitle: FlutlyText("Evet", font: ""),
-                        //       buttonTap: () {},
-                        //       buttonColor: Colors.red,
-                        //     ),
-                        //     right: FlutlyDialogActionApperiances(
-                        //       buttonTitle: FlutlyText("Evet", font: ""),
-                        //       buttonTap: () {},
-                        //       buttonColor: Colors.red,
-                        //     ),
-                        //   ),
-                        // );
-
-                        Flutly.showBluredDialog(
-                          context,
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                          ),
-                        );
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: 200,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                    SetupItemContainer(
+                        setupItem: SetupItem(
+                          "assets/bottom_bar/profile_photo.jpeg",
+                          "Matthew Johnson",
                         ),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 20),
                       ),
-                    ),
+                      const SizedBox(height: 10),
+                      SetupItemContainer(
+                        setupItem: SetupItem(
+                          "assets/bottom_bar/profile_photo.jpeg",
+                          "Matthew Johnson",
+                        ),
+                      ),
                     FlutlyRichText(
                       font: " large ",
                       texts: [

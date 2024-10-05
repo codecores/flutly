@@ -1,7 +1,10 @@
 import 'package:flutly/apperiances/flutly_profile_image_apperiances.dart';
+import 'package:flutly/core/flutly_config_builder.dart';
+import 'package:flutly/widgets/flutly_stateless_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
-class FlutlyProfileImage extends StatelessWidget {
+class FlutlyProfileImage extends FlutlyStatelessWidget {
   String path;
   double? width;
   double? height;
@@ -16,6 +19,7 @@ class FlutlyProfileImage extends StatelessWidget {
     this.expanded,
   }) : super(key: key) {
     apperiances ??= FlutlyProfileImageApperiances();
+    setCanShimmer(true);
   }
 
   @override
@@ -25,30 +29,42 @@ class FlutlyProfileImage extends StatelessWidget {
     }
 
     if (expanded ?? false) {
-      return Expanded(child: getContent());
+      return Expanded(child: getContent(context));
     }
-    return getContent();
+    return getContent(context);
   }
 
-  Widget getContent() {
+  Widget getContent(BuildContext context) {
     bool isExpanded = (expanded ?? false);
     bool isNetworkImage = path.startsWith("http");
 
-    return Container(
-      width: isExpanded ? double.infinity : width,
-      height: isExpanded ? double.infinity : height,
-      decoration: BoxDecoration(
-        borderRadius: apperiances!.getBorderRadius(),
-        shape: apperiances!.borderRadius == null ? apperiances!.shape! : BoxShape.rectangle,
-        border: Border.all(
-          color: apperiances!.borderColor!,
-          width: apperiances!.borderWeight!,
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: apperiances!.getBorderRadius() ?? const BorderRadius.all(Radius.circular(999)),
-        child: isNetworkImage ? Image.network(path) :  Image.asset(path),
-      ),
+    return FlutlyConfigBuilder(
+      builder: (controller) {
+        return Stack(
+          children: [
+            Container(
+              width: isExpanded ? double.infinity : width,
+              height: isExpanded ? double.infinity : height,
+              decoration: BoxDecoration(
+                borderRadius: apperiances!.getBorderRadius(),
+                shape: apperiances!.borderRadius == null
+                    ? apperiances!.shape!
+                    : BoxShape.rectangle,
+                border: Border.all(
+                  color: apperiances!.borderColor!,
+                  width: apperiances!.borderWeight!,
+                ),
+              ),
+              child: ClipRRect(
+                borderRadius: apperiances!.getBorderRadius() ??
+                    const BorderRadius.all(Radius.circular(999)),
+                child: isNetworkImage ? Image.network(path) : Image.asset(path),
+              ),
+            ).animate(target: controller.onShimmer.value ? 0 : 1).fadeIn(),
+            super.build(context),
+          ],
+        );
+      },
     );
   }
 }
